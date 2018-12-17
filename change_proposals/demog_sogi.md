@@ -19,7 +19,8 @@ Changes
 -----------
 We propose to:
 
-  1. change the definition of gender to hold *only* gender identity information (as of last ascertainment)
+  1. Deprecate/remove the existing **gender** variable.
+  2. Add a new variable to hold *only* gender identity information (as of last ascertainment)
   2. add a new fields to hold:
     1. sex at birth
     2. sexual orientation (as of last ascertainment)
@@ -27,7 +28,7 @@ We propose to:
 |Variable Name|Definition|Type(Len)|Values|Implementation Guidelines|
 |-------------|----------|---------|------|-------------------------|
 |natal_sex|The person's physical sex at birth|char(1)|M = Male<br>F = Female<br>U = Unknown<br>O = Other| |
-|gender|The person's gender identity as subjectively experienced, on last ascertainment|char(1)|M = Male<br>F = Female<br>N = Non-binary<br>T = Transgender<br>O = Other<br>U = Unknown| |
+|gender_identity|The person's gender identity as subjectively experienced, on last ascertainment|char(1)|M = Male<br>F = Female<br>N = Non-binary<br>T = Transgender<br>O = Other<br>U = Unknown| |
 |sexual_orientation|The person's person's sexual identity in relation to the gender to which they are attracted, on last ascertainment.|char(1)|T = Heterosexual<br>M = Homosexual<br>B = Bisexual<br>O = Other<br>U = Unknown||
 
 
@@ -40,9 +41,9 @@ Anticipated Impacts
 
 On Users
 --------
-It would be hard to overstate the degree to which the existing **gender** variable is used.  There are probably far more applications that access **gender** than those that do not, and so we don't take redefining it lightly.  That said, we consider the proposal a distinct improvement in that under the current spec, users don't actually know whether they are getting the preferred concept gender, or rather biological sex.
+It would be hard to overstate the degree to which the existing **gender** variable is used.  There are probably far more applications that access **gender** than those that do not, and so we don't take removing it lightly.  That said, we consider the proposal a distinct improvement in that under the current spec, users don't actually know whether they are getting the preferred concept gender, or rather biological sex. If the change is approved, users will have much more control over their applications.
 
-We expect that the changes as proposed will result in a higher number of people with 'Unknown' gender, as implementers move sex information to the new natal_sex field.  Thus, there will be significant amounts of older code that will need to be revised (including 4 standard macros) for cases where either sex is really what was desired, or where the existing combination-concept scheme is preferable to a pure gender field.  But the revisions will by and large be easy to make, and we judge that the short-term pain is worth the longer-term gain of conceptual clarity and additional information.
+We expect that there will be significant amounts of older code that will need to be revised (including 4 standard macros) for cases where either sex is really what was desired, or where the existing combination-concept scheme is preferable to a pure gender_identity field.  But the revisions will by and large be easy to make, and we judge that the short-term pain is worth the longer-term gain of conceptual clarity and additional information.  One advantage to removing the old **gender** field is that old code that is not rewritten will cause errors, which will call attention to the issue.
 
 On Implementers
 ---------------
@@ -51,7 +52,7 @@ It will require work to identify sources for the new variables and incorporate t
 
 On the Workgroup
 ----------------
-We will need to revise the list of valid values for **gender** in the QA program, and add checks and descriptives for the new fields.
+We will need to revise the QA program to warn (and eventually fail) implementations that still feature the old **gender** field, and add checks and descriptives for the new fields.
 
 Request For Feedback
 ====================

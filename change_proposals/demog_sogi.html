@@ -1087,7 +1087,8 @@ body .markdown-body
 <h2 id="changes">Changes<a class="headerlink" href="#changes" title="Permanent link"></a></h2>
 <p>We propose to:</p>
 <ol>
-<li>change the definition of gender to hold <em>only</em> gender identity information (as of last ascertainment)</li>
+<li>Deprecate/remove the existing <strong>gender</strong> variable.</li>
+<li>Add a new variable to hold <em>only</em> gender identity information (as of last ascertainment)</li>
 <li>add a new fields to hold:<ol>
 <li>sex at birth</li>
 <li>sexual orientation (as of last ascertainment)</li>
@@ -1113,7 +1114,7 @@ body .markdown-body
 <td></td>
 </tr>
 <tr>
-<td>gender</td>
+<td>gender_identity</td>
 <td>The person&rsquo;s gender identity as subjectively experienced, on last ascertainment</td>
 <td>char(1)</td>
 <td>M = Male<br>F = Female<br>N = Non-binary<br>T = Transgender<br>O = Other<br>U = Unknown</td>
@@ -1132,12 +1133,12 @@ body .markdown-body
 <p>The concepts of gender identity and sexual orientation are not static, but change over time.  This proposal does not seek to accomodate full information regarding what changes ocurred when, but rather just represent the current, best-known information at the time the table is created or updated.  This should be sufficient to serve researcher&rsquo;s needs to identify populations of interest, without unduly burdening users who rely on Demographics&rsquo; one-record-per-person structure.</p>
 <h1 id="anticipated-impacts">Anticipated Impacts<a class="headerlink" href="#anticipated-impacts" title="Permanent link"></a></h1>
 <h2 id="on-users">On Users<a class="headerlink" href="#on-users" title="Permanent link"></a></h2>
-<p>It would be hard to overstate the degree to which the existing <strong>gender</strong> variable is used.  There are probably far more applications that access <strong>gender</strong> than those that do not, and so we don&rsquo;t take redefining it lightly.  That said, we consider the proposal a distinct improvement in that under the current spec, users don&rsquo;t actually know whether they are getting the preferred concept gender, or rather biological sex.</p>
-<p>We expect that the changes as proposed will result in a higher number of people with &lsquo;Unknown&rsquo; gender, as implementers move sex information to the new natal_sex field.  Thus, there will be significant amounts of older code that will need to be revised (including 4 standard macros) for cases where either sex is really what was desired, or where the existing combination-concept scheme is preferable to a pure gender field.  But the revisions will by and large be easy to make, and we judge that the short-term pain is worth the longer-term gain of conceptual clarity and additional information.</p>
+<p>It would be hard to overstate the degree to which the existing <strong>gender</strong> variable is used.  There are probably far more applications that access <strong>gender</strong> than those that do not, and so we don&rsquo;t take removing it lightly.  That said, we consider the proposal a distinct improvement in that under the current spec, users don&rsquo;t actually know whether they are getting the preferred concept gender, or rather biological sex. If the change is approved, users will have much more control over their applications.</p>
+<p>We expect that there will be significant amounts of older code that will need to be revised (including 4 standard macros) for cases where either sex is really what was desired, or where the existing combination-concept scheme is preferable to a pure gender_identity field.  But the revisions will by and large be easy to make, and we judge that the short-term pain is worth the longer-term gain of conceptual clarity and additional information.  One advantage to removing the old <strong>gender</strong> field is that old code that is not rewritten will cause errors, which will call attention to the issue.</p>
 <h2 id="on-implementers">On Implementers<a class="headerlink" href="#on-implementers" title="Permanent link"></a></h2>
 <p>It will require work to identify sources for the new variables and incorporate them into existing ETL code for the Demographics file, as well as possibly disentangling gender from sex.  We anticipate that at most sites this will be a low-to-medium effort process (do please comment to let us know if this is the case).</p>
 <h2 id="on-the-workgroup">On the Workgroup<a class="headerlink" href="#on-the-workgroup" title="Permanent link"></a></h2>
-<p>We will need to revise the list of valid values for <strong>gender</strong> in the QA program, and add checks and descriptives for the new fields.</p>
+<p>We will need to revise the QA program to warn (and eventually fail) implementations that still feature the old <strong>gender</strong> field, and add checks and descriptives for the new fields.</p>
 <h1 id="request-for-feedback">Request For Feedback<a class="headerlink" href="#request-for-feedback" title="Permanent link"></a></h1>
 <h2 id="for-scientific-users">For Scientific Users<a class="headerlink" href="#for-scientific-users" title="Permanent link"></a></h2>
 <ol>
