@@ -27,9 +27,11 @@ We propose to:
 
 |Variable Name|Definition|Type(Len)|Values|Implementation Guidelines|
 |-------------|----------|---------|------|-------------------------|
-|natal_sex|The person's physical sex at birth|char(1)|M = Male<br>F = Female<br>U = Unknown<br>O = Other| |
-|gender_identity|The person's gender identity as subjectively experienced, on last ascertainment|char(1)|M = Male<br>F = Female<br>N = Non-binary<br>T = Transgender<br>O = Other<br>U = Unknown| |
-|sexual_orientation|The person's person's sexual identity in relation to the gender to which they are attracted, on last ascertainment.|char(1)|T = Heterosexual<br>M = Homosexual<br>B = Bisexual<br>O = Other<br>U = Unknown||
+|sex_at_birth|The person's sex as assigned at birth.|char(1)|F = Female<br>M = Male<br>A = Ambiguous<br>N = Not Applicable<br>O = Other<br>U = Unknown|This is <a href="https://phinvads.cdc.gov/vads/ViewValueSet.action?id=06D34BBC-617F-DD11-B38D-00188B398520">PHVS_AdministrativeSex_HL7_2x</a>. Values of 'intersex' should be coded as Ambiguous. Values of 'unsure' should be coded as Other.|
+|gender_identity|The person's gender identity as subjectively experienced, on last ascertainment.|char(2)|FF = Female<br>MM = Male<br>FM = Female to Male transsexual<br>MF = Male to Female transsexual<br>GQ = Genderqueer/non-conforming/non-binary<br>OT = Other<br>ND = Chose not to disclose<br>UK = Unknown|Compatible with <a href='https://phinvads.cdc.gov/vads/ViewValueSet.action?id=660779DA-64E9-E611-A856-0017A477041A'>PHVS_GenderIdentity_CDC</a>. Values of 'unsure/questioning' should be coded as Other.|
+|sexual_orientation|The person's sexual identity in relation to the gender to which they are attracted, on last ascertainment.|char(1)|H = Heterosexual<br>L = Lesbian or gay<br>B = Bisexual<br>O = Other<br>N = Choose not to disclose<br>D = Do not know|Compatible with <a href = "https://phinvads.cdc.gov/vads/ViewValueSet.action?id=E6EDE311-66E9-E611-A856-0017A477041A">PHVS_SexualOrientation_CDC</a>. Values of 'asexual' should be coded as Other.|
+
+
 
 
 Notes
