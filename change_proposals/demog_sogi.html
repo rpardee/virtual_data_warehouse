@@ -1058,8 +1058,8 @@ body .markdown-body
 </style><title>demog_sogi</title></head><body><article class="markdown-body"><h1 id="motivation">Motivation<a class="headerlink" href="#motivation" title="Permanent link"></a></h1>
 <p>This proposal is intended to cure two defects in the current <em>Demographics</em> specification:</p>
 <ol>
-<li>The current spec conflates the distinct concepts of biological sex and gender identity.</li>
-<li>The current spec does not accomodate patient sexual orientation information available (or soon to be available) at implementing HCSRN sites.</li>
+<li>The current spec combines the distinct concepts of biological sex and gender identity in a single variable.</li>
+<li>The current spec does not accomodate patient sexual orientation information available (or soon to be available) at a large number of implementing HCSRN sites.</li>
 </ol>
 <h1 id="proposed-changes">Proposed Changes<a class="headerlink" href="#proposed-changes" title="Permanent link"></a></h1>
 <h2 id="existing-spec">Existing Spec<a class="headerlink" href="#existing-spec" title="Permanent link"></a></h2>
@@ -1084,6 +1084,7 @@ body .markdown-body
 </tr>
 </tbody>
 </table>
+<p>While we expect that the vast majority of values are in fact sex assigned at birth, users have no way of knowing whether any given value is sex or gender.</p>
 <h2 id="changes">Changes<a class="headerlink" href="#changes" title="Permanent link"></a></h2>
 <p>We propose to:</p>
 <ol>
@@ -1131,6 +1132,7 @@ body .markdown-body
 </table>
 <h1 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link"></a></h1>
 <p>The concepts of gender identity and sexual orientation are not static, but change over time.  This proposal does not seek to accomodate full information regarding what changes ocurred when, but rather just represent the current, best-known information at the time the table is created or updated.  This should be sufficient to serve researcher&rsquo;s needs to identify populations of interest, without unduly burdening users who rely on Demographics&rsquo; one-record-per-person structure.</p>
+<p>It will be possible to back-translate values from the proposed variables to the old (existing) <strong>gender</strong> scheme.  The workgroup will provide SAS code for doing so (possibly in a macro) once the spec for the new vars is finalized.</p>
 <h1 id="anticipated-impacts">Anticipated Impacts<a class="headerlink" href="#anticipated-impacts" title="Permanent link"></a></h1>
 <h2 id="on-users">On Users<a class="headerlink" href="#on-users" title="Permanent link"></a></h2>
 <p>It would be hard to overstate the degree to which the existing <strong>gender</strong> variable is used.  There are probably far more applications that access <strong>gender</strong> than those that do not, and so we don&rsquo;t take removing it lightly.  That said, we consider the proposal a distinct improvement in that under the current spec, users don&rsquo;t actually know whether they are getting the preferred concept gender, or rather biological sex. If the change is approved, users will have much more control over their applications.</p>

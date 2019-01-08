@@ -2,8 +2,8 @@ Motivation
 ==========
 This proposal is intended to cure two defects in the current _Demographics_ specification:
 
-1. The current spec conflates the distinct concepts of biological sex and gender identity.
-2. The current spec does not accomodate patient sexual orientation information available (or soon to be available) at implementing HCSRN sites.
+1. The current spec combines the distinct concepts of biological sex and gender identity in a single variable.
+2. The current spec does not accomodate patient sexual orientation information available (or soon to be available) at a large number of implementing HCSRN sites.
 
 Proposed Changes
 ================
@@ -14,6 +14,8 @@ The current spec sets out a single field called 'gender' which may hold _either_
 |Variable Name|Definition|Type(Len)|Values|Implementation Guidelines|
 |-------------|----------|---------|------|-------------------------|
 |gender|The person's gender and/or sex;  if both gender and sex are known, this variable should hold gender|char(1)|M = Male<br>F = Female<br>O = Other including transgendered<br>U = Unknown| |
+
+While we expect that the vast majority of values are in fact sex assigned at birth, users have no way of knowing whether any given value is sex or gender.
 
 Changes
 -----------
@@ -31,12 +33,11 @@ We propose to:
 |gender_identity|The person's gender identity as subjectively experienced, on last ascertainment.|char(2)|FF = Female<br>MM = Male<br>FM = Female to Male transsexual<br>MF = Male to Female transsexual<br>GQ = Genderqueer/non-conforming/non-binary<br>OT = Other<br>ND = Chose not to disclose<br>UK = Unknown|Compatible with <a href='https://phinvads.cdc.gov/vads/ViewValueSet.action?id=660779DA-64E9-E611-A856-0017A477041A'>PHVS_GenderIdentity_CDC</a>. Values of 'unsure/questioning' should be coded as Other.|
 |sexual_orientation|The person's sexual identity in relation to the gender to which they are attracted, on last ascertainment.|char(1)|H = Heterosexual<br>L = Lesbian or gay<br>B = Bisexual<br>O = Other<br>N = Choose not to disclose<br>D = Do not know|Compatible with <a href = "https://phinvads.cdc.gov/vads/ViewValueSet.action?id=E6EDE311-66E9-E611-A856-0017A477041A">PHVS_SexualOrientation_CDC</a>. Values of 'asexual' should be coded as Other.|
 
-
-
-
 Notes
 =====
 The concepts of gender identity and sexual orientation are not static, but change over time.  This proposal does not seek to accomodate full information regarding what changes ocurred when, but rather just represent the current, best-known information at the time the table is created or updated.  This should be sufficient to serve researcher's needs to identify populations of interest, without unduly burdening users who rely on Demographics' one-record-per-person structure.
+
+It will be possible to back-translate values from the proposed variables to the old (existing) **gender** scheme.  The workgroup will provide SAS code for doing so (possibly in a macro) once the spec for the new vars is finalized.
 
 Anticipated Impacts
 ===================
