@@ -1063,7 +1063,7 @@ body .markdown-body
 </ol>
 <h1 id="proposed-changes">Proposed Changes<a class="headerlink" href="#proposed-changes" title="Permanent link"></a></h1>
 <h2 id="existing-spec">Existing Spec<a class="headerlink" href="#existing-spec" title="Permanent link"></a></h2>
-<p>The current spec sets out a single field called &lsquo;gender&rsquo; which may hold <em>either</em> gender (subjective gender identity) <em>or</em> sex (biological sex), depending on which data is available at the site.  The spec currently reads as follows:</p>
+<p>The current spec sets out a single field called &lsquo;gender&rsquo; which may hold <em>either</em> gender (subjective gender identity) <em>or</em> sex (biological sex), or a mixture of the two, depending on which data is available at the site.  The spec currently reads as follows:</p>
 <table>
 <thead>
 <tr>
@@ -1090,8 +1090,9 @@ body .markdown-body
 <ol>
 <li>Deprecate/remove the existing <strong>gender</strong> variable.</li>
 <li>Add a new variable to hold <em>only</em> gender identity information (as of last ascertainment)</li>
-<li>add a new fields to hold:<ol>
+<li>add new fields to hold:<ol>
 <li>sex at birth</li>
+<li>administrative sex</li>
 <li>sexual orientation (as of last ascertainment)</li>
 </ol>
 </li>
@@ -1115,6 +1116,13 @@ body .markdown-body
 <td>This is <a href="https://phinvads.cdc.gov/vads/ViewValueSet.action?id=06D34BBC-617F-DD11-B38D-00188B398520">PHVS_AdministrativeSex_HL7_2x</a>. Values of &lsquo;intersex&rsquo; should be coded as Ambiguous. Values of &lsquo;unsure&rsquo; should be coded as Other.<br/>Legacy sources may designate the information we mean here as either &lsquo;sex&rsquo; or &lsquo;gender&rsquo; without regard for the distinction between these concepts.  In the absence of specific knowledge that a given legacy source codes gender identity, implementers should default to placing legacy data in this variable. <br/> In general, any data collected before your organization began collecting detailed <abbr title = "Sexual Orientation/Gender Identity">SOGI</abbr> data should go in this field.</td>
 </tr>
 <tr>
+<td>sex_admin</td>
+<td>The person&rsquo;s &ldquo;administrative sex&rdquo;&ndash;the value stored in official/legacy sources.</td>
+<td>char(1)</td>
+<td>::same as sex_at_birth::</td>
+<td>This is probably most analagous to the current &lsquo;gender&rsquo; variable in terms of how often it should be populated.</td>
+</tr>
+<tr>
 <td>gender_identity</td>
 <td>The person&rsquo;s gender identity as subjectively experienced, on last ascertainment.</td>
 <td>char(2)</td>
@@ -1122,17 +1130,19 @@ body .markdown-body
 <td>Compatible with <a href='https://phinvads.cdc.gov/vads/ViewValueSet.action?id=660779DA-64E9-E611-A856-0017A477041A'>PHVS_GenderIdentity_CDC</a>. Values of &lsquo;unsure/questioning&rsquo; should be coded as Other.</td>
 </tr>
 <tr>
-<td>sexual_orientation</td>
-<td>The person&rsquo;s sexual identity in relation to the gender to which they are attracted, on last ascertainment.</td>
+<td>sexual_orientation1 sexual_orientation2 sexual_orientation3</td>
+<td>The person&rsquo;s sexual identities in relation to the gender(s) to which they are attracted, on last ascertainment.</td>
 <td>char(1)</td>
 <td>H = Heterosexual<br>L = Lesbian or gay<br>B = Bisexual<br>O = Other<br>N = Choose not to disclose<br>D = Do not know</td>
-<td>Compatible with <a href = "https://phinvads.cdc.gov/vads/ViewValueSet.action?id=E6EDE311-66E9-E611-A856-0017A477041A">PHVS_SexualOrientation_CDC</a>. Values of &lsquo;asexual&rsquo; should be coded as Other.</td>
+<td>Compatible with <a href = "https://phinvads.cdc.gov/vads/ViewValueSet.action?id=E6EDE311-66E9-E611-A856-0017A477041A">PHVS_SexualOrientation_CDC</a>. Values of &lsquo;asexual&rsquo; should be coded as Other.<br>It is uncommon but not impossible to have more than 1 sexual orientation.<br>For people who have endorsed more than one option, please list the orientations the person has selected in the order listed under Values.</td>
 </tr>
 </tbody>
 </table>
 <h1 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link"></a></h1>
 <p>The concepts of gender identity and sexual orientation are not static, but change over time.  This proposal does not seek to accomodate full information regarding what changes ocurred when, but rather just represent the current, best-known information at the time the table is created or updated.  This should be sufficient to serve researcher&rsquo;s needs to identify populations of interest, without unduly burdening users who rely on Demographics&rsquo; one-record-per-person structure.</p>
 <p>It will be possible to back-translate values from the proposed variables to the old (existing) <strong>gender</strong> scheme.  The workgroup will provide SAS code for doing so (possibly in a macro) once the spec for the new vars is finalized.</p>
+<h2 id="coding-sexual-orientation">Coding Sexual Orientation<a class="headerlink" href="#coding-sexual-orientation" title="Permanent link"></a></h2>
+<p>For people who endorse more than one sexual orienation, please list them in the sexual orientation fields in this order</p>
 <h1 id="anticipated-impacts">Anticipated Impacts<a class="headerlink" href="#anticipated-impacts" title="Permanent link"></a></h1>
 <h2 id="on-users">On Users<a class="headerlink" href="#on-users" title="Permanent link"></a></h2>
 <p>It would be hard to overstate the degree to which the existing <strong>gender</strong> variable is used.  There are probably far more applications that access <strong>gender</strong> than those that do not, and so we don&rsquo;t take removing it lightly.  That said, we consider the proposal a distinct improvement in that under the current spec, users don&rsquo;t actually know whether they are getting the preferred concept gender, or rather biological sex. If the change is approved, users will have much more control over their applications.</p>
@@ -1163,4 +1173,5 @@ body .markdown-body
 <li>likely to be useful?</li>
 </ol>
 </li>
+<li>Can you think of a better way of storing this data for research use?</li>
 </ol></article></body></html>

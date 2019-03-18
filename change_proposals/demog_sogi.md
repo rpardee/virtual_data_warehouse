@@ -9,7 +9,7 @@ Proposed Changes
 ================
 Existing Spec
 -------------
-The current spec sets out a single field called 'gender' which may hold _either_ gender (subjective gender identity) _or_ sex (biological sex), depending on which data is available at the site.  The spec currently reads as follows:
+The current spec sets out a single field called 'gender' which may hold _either_ gender (subjective gender identity) _or_ sex (biological sex), or a mixture of the two, depending on which data is available at the site.  The spec currently reads as follows:
 
 |Variable Name|Definition|Type(Len)|Values|Implementation Guidelines|
 |-------------|----------|---------|------|-------------------------|
@@ -23,21 +23,27 @@ We propose to:
 
   1. Deprecate/remove the existing **gender** variable.
   2. Add a new variable to hold *only* gender identity information (as of last ascertainment)
-  2. add a new fields to hold:
+  2. add new fields to hold:
     1. sex at birth
+    2. administrative sex
     2. sexual orientation (as of last ascertainment)
 
 |Variable Name|Definition|Type(Len)|Values|Implementation Guidelines|
 |-------------|----------|---------|------|-------------------------|
 |sex_at_birth|The person's sex as assigned at birth.|char(1)|F = Female<br>M = Male<br>A = Ambiguous<br>N = Not Applicable<br>O = Other<br>U = Unknown|This is <a href="https://phinvads.cdc.gov/vads/ViewValueSet.action?id=06D34BBC-617F-DD11-B38D-00188B398520">PHVS_AdministrativeSex_HL7_2x</a>. Values of 'intersex' should be coded as Ambiguous. Values of 'unsure' should be coded as Other.<br/>Legacy sources may designate the information we mean here as either 'sex' or 'gender' without regard for the distinction between these concepts.  In the absence of specific knowledge that a given legacy source codes gender identity, implementers should default to placing legacy data in this variable. <br/> In general, any data collected before your organization began collecting detailed <abbr title = "Sexual Orientation/Gender Identity">SOGI</abbr> data should go in this field.|
+|sex_admin|The person's "administrative sex"--the value stored in official/legacy sources.|char(1)|::same as sex_at_birth::|This is probably most analagous to the current 'gender' variable in terms of how often it should be populated.|
 |gender_identity|The person's gender identity as subjectively experienced, on last ascertainment.|char(2)|FF = Female<br>MM = Male<br>FM = Female to Male transgender<br>MF = Male to Female transgender<br>GQ = Genderqueer/non-conforming/non-binary<br>OT = Other<br>ND = Chose not to disclose<br>UK = Unknown|Compatible with <a href='https://phinvads.cdc.gov/vads/ViewValueSet.action?id=660779DA-64E9-E611-A856-0017A477041A'>PHVS_GenderIdentity_CDC</a>. Values of 'unsure/questioning' should be coded as Other.|
-|sexual_orientation|The person's sexual identity in relation to the gender to which they are attracted, on last ascertainment.|char(1)|H = Heterosexual<br>L = Lesbian or gay<br>B = Bisexual<br>O = Other<br>N = Choose not to disclose<br>D = Do not know|Compatible with <a href = "https://phinvads.cdc.gov/vads/ViewValueSet.action?id=E6EDE311-66E9-E611-A856-0017A477041A">PHVS_SexualOrientation_CDC</a>. Values of 'asexual' should be coded as Other.|
+|sexual_orientation1 sexual_orientation2 sexual_orientation3|The person's sexual identities in relation to the gender(s) to which they are attracted, on last ascertainment.|char(1)|H = Heterosexual<br>L = Lesbian or gay<br>B = Bisexual<br>O = Other<br>N = Choose not to disclose<br>D = Do not know|Compatible with <a href = "https://phinvads.cdc.gov/vads/ViewValueSet.action?id=E6EDE311-66E9-E611-A856-0017A477041A">PHVS_SexualOrientation_CDC</a>. Values of 'asexual' should be coded as Other.<br>It is uncommon but not impossible to have more than 1 sexual orientation.<br>For people who have endorsed more than one option, please list the orientations the person has selected in the order listed under Values.|
 
 Notes
 =====
 The concepts of gender identity and sexual orientation are not static, but change over time.  This proposal does not seek to accomodate full information regarding what changes ocurred when, but rather just represent the current, best-known information at the time the table is created or updated.  This should be sufficient to serve researcher's needs to identify populations of interest, without unduly burdening users who rely on Demographics' one-record-per-person structure.
 
 It will be possible to back-translate values from the proposed variables to the old (existing) **gender** scheme.  The workgroup will provide SAS code for doing so (possibly in a macro) once the spec for the new vars is finalized.
+
+Coding Sexual Orientation
+------------------------
+For people who endorse more than one sexual orienation, please list them in the sexual orientation fields in this order
 
 Anticipated Impacts
 ===================
@@ -79,3 +85,4 @@ For Implementers
     1. conceptually coherent?
     1. clearly defined?
     1. likely to be useful?
+3. Can you think of a better way of storing this data for research use?
