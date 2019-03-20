@@ -1,9 +1,6 @@
 Motivation
 ==========
-This proposal is intended to cure two defects in the current _Demographics_ specification:
-
-1. The current spec combines the distinct concepts of biological sex and gender identity in a single variable.
-2. The current spec does not accomodate patient sexual orientation information available (or soon to be available) at a large number of implementing HCSRN sites.
+This proposal is intended to cure a defect in the current _Demographics_ specification--namely that it combines the distinct concepts of biological sex and gender identity in a single variable.
 
 Proposed Changes
 ================
@@ -26,24 +23,23 @@ We propose to:
   2. add new fields to hold:
     1. sex at birth
     2. administrative sex
-    2. sexual orientation (as of last ascertainment)
+    3. gender identity
 
 |Variable Name|Definition|Type(Len)|Values|Implementation Guidelines|
 |-------------|----------|---------|------|-------------------------|
-|sex_at_birth|The person's sex as assigned at birth.|char(1)|F = Female<br>M = Male<br>A = Ambiguous<br>N = Not Applicable<br>O = Other<br>U = Unknown|This is <a href="https://phinvads.cdc.gov/vads/ViewValueSet.action?id=06D34BBC-617F-DD11-B38D-00188B398520">PHVS_AdministrativeSex_HL7_2x</a>. Values of 'intersex' should be coded as Ambiguous. Values of 'unsure' should be coded as Other.<br/>Legacy sources may designate the information we mean here as either 'sex' or 'gender' without regard for the distinction between these concepts.  In the absence of specific knowledge that a given legacy source codes gender identity, implementers should default to placing legacy data in this variable. <br/> In general, any data collected before your organization began collecting detailed <abbr title = "Sexual Orientation/Gender Identity">SOGI</abbr> data should go in this field.|
-|sex_admin|The person's "administrative sex"--the value stored in official/legacy sources.|char(1)|::same as sex_at_birth::|This is probably most analagous to the current 'gender' variable in terms of how often it should be populated.|
+|sex_admin|The person's "administrative sex"--the value stored in official/legacy sources at last ascertainment.|char(1)|F = Female<br>M = Male<br>A = Ambiguous<br>N = Not Applicable<br>O = Other<br>U = Unknown|This is <a href="https://phinvads.cdc.gov/vads/ViewValueSet.action?id=06D34BBC-617F-DD11-B38D-00188B398520">PHVS_AdministrativeSex_HL7_2x</a>. <br/>Legacy sources may designate the information we mean here as either 'sex' or 'gender' without regard for the distinction between these concepts.  In the absence of specific knowledge that a given legacy source codes gender identity, implementers should default to placing legacy data in this variable. <br/> In general, any data collected before your organization began collecting detailed <abbr title = "Sexual Orientation/Gender Identity">SOGI</abbr> data should go in this field. <br/>Values of 'intersex' should be coded as Ambiguous. Values of 'unsure' should be coded as Other.|
+|sex_at_birth|The person's sex as assigned at birth.|char(1)|::same as sex_admin::|It is expected that sex_admin may change over time as a person changes their legal and/or physical sex--this variable should not change.|
 |gender_identity|The person's gender identity as subjectively experienced, on last ascertainment.|char(2)|FF = Female<br>MM = Male<br>FM = Female to Male transgender<br>MF = Male to Female transgender<br>GQ = Genderqueer/non-conforming/non-binary<br>OT = Other<br>ND = Chose not to disclose<br>UK = Unknown|Compatible with <a href='https://phinvads.cdc.gov/vads/ViewValueSet.action?id=660779DA-64E9-E611-A856-0017A477041A'>PHVS_GenderIdentity_CDC</a>. Values of 'unsure/questioning' should be coded as Other.|
-|sexual_orientation1 sexual_orientation2 sexual_orientation3|The person's sexual identities in relation to the gender(s) to which they are attracted, on last ascertainment.|char(1)|H = Heterosexual<br>L = Lesbian or gay<br>B = Bisexual<br>O = Other<br>N = Choose not to disclose<br>D = Do not know|Compatible with <a href = "https://phinvads.cdc.gov/vads/ViewValueSet.action?id=E6EDE311-66E9-E611-A856-0017A477041A">PHVS_SexualOrientation_CDC</a>. Values of 'asexual' should be coded as Other.<br>It is uncommon but not impossible to have more than 1 sexual orientation.<br>For people who have endorsed more than one option, please list the orientations the person has selected in the order listed under Values.|
 
 Notes
 =====
-The concepts of gender identity and sexual orientation are not static, but change over time.  This proposal does not seek to accomodate full information regarding what changes ocurred when, but rather just represent the current, best-known information at the time the table is created or updated.  This should be sufficient to serve researcher's needs to identify populations of interest, without unduly burdening users who rely on Demographics' one-record-per-person structure.
+The concept of gender identity is not static, but may change over time.  This proposal does not seek to accomodate full information regarding what changes ocurred when, but rather just represent the current, best-known information at the time the table is created or updated.  This should be sufficient to serve researcher's needs to identify populations of interest, without unduly burdening users who rely on Demographics' one-record-per-person structure.
 
 It will be possible to back-translate values from the proposed variables to the old (existing) **gender** scheme.  The workgroup will provide SAS code for doing so (possibly in a macro) once the spec for the new vars is finalized.
 
-Coding Sexual Orientation
-------------------------
-For people who endorse more than one sexual orienation, please list them in the sexual orientation fields in this order
+Sexual Orientation
+------------------
+We originally attempted to incorporate sexual orientation fields into this change request, but after numerous calls and e-mail threads found that we could not come to a good specification that would integrate the information we expect to be available and be useful for known research.  With time and experience using SO data outside of the VDW we may realize that it can be done well (or that it's worth putting in a separate table).
 
 Anticipated Impacts
 ===================
