@@ -1109,21 +1109,21 @@ body .markdown-body
 <td>The person&rsquo;s &ldquo;administrative sex&rdquo;&ndash;the value stored in official/legacy sources at last ascertainment.</td>
 <td>char(1)</td>
 <td>F = Female<br>M = Male<br>A = Ambiguous<br>N = Not Applicable<br>O = Other<br>U = Unknown</td>
-<td>This is <a href="https://phinvads.cdc.gov/vads/ViewValueSet.action?id=06D34BBC-617F-DD11-B38D-00188B398520">PHVS_AdministrativeSex_HL7_2x</a>. <br/>Legacy sources may designate the information we mean here as either &lsquo;sex&rsquo; or &lsquo;gender&rsquo; without regard for the distinction between these concepts.  In the absence of specific knowledge that a given legacy source codes gender identity, implementers should default to placing legacy data in this variable. <br/> In general, any data collected before your organization began collecting detailed <abbr title = "Sexual Orientation/Gender Identity">SOGI</abbr> data should go in this field. <br/>Values of &lsquo;intersex&rsquo; should be coded as Ambiguous. Values of &lsquo;unsure&rsquo; should be coded as Other.</td>
+<td>This is <a href="https://phinvads.cdc.gov/vads/ViewValueSet.action?id=06D34BBC-617F-DD11-B38D-00188B398520">PHVS_AdministrativeSex_HL7_2x</a>. <br/>Legacy sources may designate the information we mean here as either &lsquo;sex&rsquo; or &lsquo;gender&rsquo; without regard for the distinction between these concepts.  In the absence of specific knowledge that a given legacy source codes gender identity, implementers should default to placing legacy data in this variable. <br/> In general, any data collected before your organization began collecting detailed <abbr title = "Sexual Orientation/Gender Identity">SOGI</abbr> data should go in this field. <br/>Values of &lsquo;intersex&rsquo; should be coded as Ambiguous. Values of &lsquo;unsure&rsquo; should be coded as Other. Missing values should be coded as Unknown.</td>
 </tr>
 <tr>
 <td>sex_at_birth</td>
 <td>The person&rsquo;s sex as assigned at birth.</td>
 <td>char(1)</td>
 <td>::same as sex_admin::</td>
-<td>It is expected that sex_admin may change over time as a person changes their legal and/or physical sex&ndash;this variable should not change.</td>
+<td>It is expected that sex_admin may change over time as a person changes their legal and/or physical sex&ndash;this variable should not change.<br>Missing values should be coded as Unknown.</td>
 </tr>
 <tr>
 <td>gender_identity</td>
 <td>The person&rsquo;s gender identity as subjectively experienced, on last ascertainment.</td>
 <td>char(2)</td>
 <td>FF = Female<br>MM = Male<br>FM = Female to Male transgender<br>MF = Male to Female transgender<br>GQ = Genderqueer/non-conforming/non-binary<br>OT = Other<br>ND = Chose not to disclose<br>UK = Unknown</td>
-<td>Compatible with <a href='https://phinvads.cdc.gov/vads/ViewValueSet.action?id=660779DA-64E9-E611-A856-0017A477041A'>PHVS_GenderIdentity_CDC</a>. Values of &lsquo;unsure/questioning&rsquo; should be coded as Other.</td>
+<td>Compatible with <a href='https://phinvads.cdc.gov/vads/ViewValueSet.action?id=660779DA-64E9-E611-A856-0017A477041A'>PHVS_GenderIdentity_CDC</a>. Values of &lsquo;unsure/questioning&rsquo; should be coded as Other. Missing values should be coded as Unknown.</td>
 </tr>
 </tbody>
 </table>
