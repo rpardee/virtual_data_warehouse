@@ -1080,7 +1080,7 @@ body .markdown-body
 </tr>
 </tbody>
 </table>
-<p>While we expect that the vast majority of values are in fact sex assigned at birth, users have no way of knowing whether any given value is sex or gender.</p>
+<p>While we expect that the vast majority of values are in fact sex assigned at birth, users currently have no way of knowing whether any given value is sex or gender.</p>
 <h2 id="changes">Changes<a class="headerlink" href="#changes" title="Permanent link"></a></h2>
 <p>We propose to:</p>
 <ol>
@@ -1115,15 +1115,15 @@ body .markdown-body
 <td>sex_at_birth</td>
 <td>The person&rsquo;s sex as assigned at birth.</td>
 <td>char(1)</td>
-<td>::same as sex_admin::</td>
-<td>It is expected that sex_admin may change over time as a person changes their legal and/or physical sex&ndash;this variable should not change.<br>Missing values should be coded as Unknown.</td>
+<td>F = Female<br/> M = Male<br/> I = Intersex<br/> O = Other<br/> U = Uncertain<br/>, Unknown or Not recorded on birth certificate<br/>C = Choose not to disclose</td>
+<td>The existence of the &lsquo;Intersex&rsquo; and &lsquo;Other&rsquo; options renders this <strong>in</strong>compatible with <a href="https://loinc.org/LL3324-2/">LOINC LL3324-2</a>. Those values appear in our data and are foreseeably useful enough to research that we are comfortable departing from LOINC compatibility. <br/> It is expected that sex_admin may change over time as a person changes their legal and/or physical sex&ndash;this variable should not change.<br>Missing values should be coded as Unknown.</td>
 </tr>
 <tr>
 <td>gender_identity</td>
 <td>The person&rsquo;s gender identity as subjectively experienced, on last ascertainment.</td>
 <td>char(2)</td>
-<td>FF = Female<br>MM = Male<br>FM = Female to Male transgender<br>MF = Male to Female transgender<br>GQ = Genderqueer/non-conforming/non-binary<br>OT = Other<br>ND = Chose not to disclose<br>UK = Unknown</td>
-<td>Compatible with <a href='https://phinvads.cdc.gov/vads/ViewValueSet.action?id=660779DA-64E9-E611-A856-0017A477041A'>PHVS_GenderIdentity_CDC</a>. Values of &lsquo;unsure/questioning&rsquo; should be coded as Other. Missing values should be coded as Unknown.</td>
+<td>FF = Female<br>MM = Male<br>FM = Female to Male transgender<br>MF = Male to Female transgender<br>GQ = Genderqueer or non-conforming or non-binary or genderfluid<br>OT = Other<br>ND = Chose not to disclose<br>UK = Unknown</td>
+<td>Compatible with <a href='https://phinvads.cdc.gov/vads/ViewValueSet.action?id=660779DA-64E9-E611-A856-0017A477041A'>PHVS_GenderIdentity_CDC</a> and <a href="https://loinc.org/LL3322-6/">LOINC LL3322-6</a>. Values of &lsquo;unsure/questioning&rsquo; should be coded as Other. Missing values should be coded as Unknown.</td>
 </tr>
 </tbody>
 </table>
