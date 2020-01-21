@@ -1087,8 +1087,8 @@ body .markdown-body
 <li>Deprecate/remove the existing <strong>gender</strong> variable.</li>
 <li>Add a new variable to hold <em>only</em> gender identity information (as of last ascertainment)</li>
 <li>add new fields to hold:<ol>
-<li>sex at birth</li>
 <li>administrative sex</li>
+<li>sex at birth</li>
 <li>gender identity</li>
 </ol>
 </li>
@@ -1109,7 +1109,7 @@ body .markdown-body
 <td>The person&rsquo;s &ldquo;administrative sex&rdquo;&ndash;the value stored in official/legacy sources at last ascertainment.</td>
 <td>char(1)</td>
 <td>F = Female<br>M = Male<br>X = Neither Male Nor Female<br>O = Other<br>U = Unknown /uncertain / missing</td>
-<td>Legacy sources may designate the information we mean here as either &lsquo;sex&rsquo; or &lsquo;gender&rsquo; without regard for the distinction between these concepts.  In the absence of specific knowledge that a given legacy source codes gender identity, implementers should default to placing legacy data in this variable. <br/> In general, any data collected before your organization began collecting detailed <abbr title = "Sexual Orientation/Gender Identity">SOGI</abbr> data should go in this field. <br/>This is <strong>not</strong> compatible with <a href="https://phinvads.cdc.gov/vads/ViewValueSet.action?id=06D34BBC-617F-DD11-B38D-00188B398520">PHVS_AdministrativeSex_HL7_2x</a> but should better accomodate the data we expect to be available at the sites.</td>
+<td>Legacy sources may designate the information we mean here as either &lsquo;sex&rsquo; or &lsquo;gender&rsquo; without regard for the distinction between these concepts.  In the absence of specific knowledge that a given legacy source codes gender identity, implementers should default to placing legacy data in this variable. <br/> In general, any data collected before your organization began collecting detailed <abbr title = "Sexual Orientation/Gender Identity">SOGI</abbr> data should go in this field. <br/>The workgroup expects that sex_admin will be most similar to the existing gender field in terms of having informative values on &gt;99% of records and will be the best single-field substitute for it.<br/></br>This is <strong>not</strong> compatible with <a href="https://phinvads.cdc.gov/vads/ViewValueSet.action?id=06D34BBC-617F-DD11-B38D-00188B398520">PHVS_AdministrativeSex_HL7_2x</a> but should better accomodate the data we expect to be available at the sites.</td>
 </tr>
 <tr>
 <td>sex_at_birth</td>
