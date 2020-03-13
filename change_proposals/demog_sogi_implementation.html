@@ -1055,112 +1055,65 @@ body .markdown-body
 .codehilite .vi{color:teal}
 .codehilite .il{color:#009999}
 .codehilite .gc{color:#999;background-color:#EAF2F5}
-</style><title>demog_sogi</title></head><body><article class="markdown-body"><h1 id="motivation">Motivation<a class="headerlink" href="#motivation" title="Permanent link"></a></h1>
-<p>This proposal is intended to cure a defect in the current <em>Demographics</em> specification&ndash;namely that it combines the distinct concepts of biological sex and gender identity in a single variable.</p>
-<h1 id="proposed-changes">Proposed Changes<a class="headerlink" href="#proposed-changes" title="Permanent link"></a></h1>
-<h2 id="existing-spec">Existing Spec<a class="headerlink" href="#existing-spec" title="Permanent link"></a></h2>
-<p>The current spec sets out a single field called &lsquo;gender&rsquo; which may hold <em>either</em> gender (subjective gender identity) <em>or</em> sex (biological sex), or a mixture of the two, depending on which data is available at the site.  The spec currently reads as follows:</p>
+</style><title>demog_sogi_implementation</title></head><body><article class="markdown-body"><h1 id="implementation-proposal">Implementation Proposal<a class="headerlink" href="#implementation-proposal" title="Permanent link"></a></h1>
+<p>We propose that the sex &amp; gender identity changes happen in 3 phases.</p>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link"></a></h2>
 <table>
 <thead>
 <tr>
-<th>Variable Name</th>
-<th>Definition</th>
-<th>Type(Len)</th>
-<th>Values</th>
-<th>Implementation Guidelines</th>
+<th>Phase</th>
+<th>Task</th>
+<th>Who?</th>
+<th>Proposed Due Date</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>gender</td>
-<td>The person&rsquo;s gender and/or sex;  if both gender and sex are known, this variable should hold gender</td>
-<td>char(1)</td>
-<td>M = Male<br>F = Female<br>O = Other including transgendered<br>U = Unknown</td>
-<td></td>
+<td>1</td>
+<td>Produce an interim QA program to check implementations</td>
+<td>Roy</td>
+<td>28-feb-2020 (<a href="https://www.hcsrn.org/share/page/site/VDW/document-details?nodeRef=workspace://SpacesStore/27f7d47d-dbe5-44c4-9842-05cecc7d7a2b">done</a>)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Add the 3 new columns</td>
+<td>Sites</td>
+<td>30-apr-2020</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Switch std macros to using new columns</td>
+<td>Roy</td>
+<td>30-apr-2020</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Integrate interim QA checks into main E/D/L QA program + add check that GENDER is removed.</td>
+<td>Roy</td>
+<td>29-may-2020</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Remove GENDER from implementations</td>
+<td>Sites</td>
+<td>26-jun-2020</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Return Enroll/Demog/Lang QA</td>
+<td>Sites</td>
+<td>31-jul-2020</td>
 </tr>
 </tbody>
 </table>
-<p>While we expect that the vast majority of values are in fact sex assigned at birth, users currently have no way of knowing whether any given value is sex or gender.</p>
-<h2 id="changes">Changes<a class="headerlink" href="#changes" title="Permanent link"></a></h2>
-<p>We propose to:</p>
-<ol>
-<li>Deprecate/remove the existing <strong>gender</strong> variable.</li>
-<li>Add a new variable to hold <em>only</em> gender identity information (as of last ascertainment)</li>
-<li>add new fields to hold:<ol>
-<li>administrative sex</li>
-<li>sex at birth</li>
-<li>gender identity</li>
-</ol>
-</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>Variable Name</th>
-<th>Definition</th>
-<th>Type(Len)</th>
-<th>Values</th>
-<th>Implementation Guidelines</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>sex_admin</td>
-<td>The person&rsquo;s &ldquo;administrative sex&rdquo;&ndash;the value stored in official/legacy sources at last ascertainment.</td>
-<td>char(1)</td>
-<td>F = Female<br>M = Male<br>X = Neither Male Nor Female<br>O = Other<br>U = Unknown /uncertain / missing</td>
-<td>Legacy sources may designate the information we mean here as either &lsquo;sex&rsquo; or &lsquo;gender&rsquo; without regard for the distinction between these concepts.  In the absence of specific knowledge that a given legacy source codes gender identity, implementers should default to placing legacy data in this variable. <br/> In general, any data collected before your organization began collecting detailed <abbr title = "Sexual Orientation/Gender Identity">SOGI</abbr> data should go in this field. <br/>The workgroup expects that sex_admin will be most similar to the existing gender field in terms of having informative values on &gt;99% of records and will be the best single-field substitute for it.<br/></br>This is <strong>not</strong> compatible with <a href="https://phinvads.cdc.gov/vads/ViewValueSet.action?id=06D34BBC-617F-DD11-B38D-00188B398520">PHVS_AdministrativeSex_HL7_2x</a> but should better accomodate the data we expect to be available at the sites.</td>
-</tr>
-<tr>
-<td>sex_at_birth</td>
-<td>The person&rsquo;s sex as assigned at birth.</td>
-<td>char(1)</td>
-<td>F = Female<br/> M = Male<br/> I = Intersex<br/> O = Other<br/> U = Uncertain<br/>, Unknown or Not recorded on birth certificate<br/>C = Choose not to disclose</td>
-<td>The existence of the <a href="https://en.wikipedia.org/wiki/Intersex">&lsquo;Intersex&rsquo;</a> and &lsquo;Other&rsquo; options renders this <strong>in</strong>compatible with <a href="https://loinc.org/LL3324-2/">LOINC LL3324-2</a>. Those values appear in our data and are foreseeably useful enough to research that we are comfortable departing from LOINC compatibility. <br/> It is expected that sex_admin may change over time as a person changes their legal and/or physical sex&ndash;this variable should not change.<br>Missing values should be coded as Unknown.</td>
-</tr>
-<tr>
-<td>gender_identity</td>
-<td>The person&rsquo;s gender identity as subjectively experienced, on last ascertainment.</td>
-<td>char(2)</td>
-<td>FF = Female<br>MM = Male<br>FM = Female to Male transgender<br>MF = Male to Female transgender<br>GQ = Genderqueer or non-conforming or non-binary or genderfluid<br>OT = Other<br>ND = Choose not to disclose<br>UN = Unknown</td>
-<td>Compatible with <a href='https://phinvads.cdc.gov/vads/ViewValueSet.action?id=660779DA-64E9-E611-A856-0017A477041A'>PHVS_GenderIdentity_CDC</a> and <a href="https://loinc.org/LL3322-6/">LOINC LL3322-6</a>. Values of &lsquo;unsure/questioning&rsquo; should be coded as Other. Missing values should be coded as Unknown.</td>
-</tr>
-</tbody>
-</table>
-<h1 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link"></a></h1>
-<p>The concept of gender identity is not static, but may change over time.  This proposal does not seek to accomodate full information regarding what changes ocurred when, but rather just represent the current, best-known information at the time the table is created or updated.  This should be sufficient to serve researcher&rsquo;s needs to identify populations of interest, without unduly burdening users who rely on Demographics&rsquo; one-record-per-person structure.</p>
-<p>It will be possible to back-translate values from the proposed variables to the old (existing) <strong>gender</strong> scheme.  The workgroup will provide SAS code for doing so (possibly in a macro) once the spec for the new vars is finalized.</p>
-<h2 id="sexual-orientation">Sexual Orientation<a class="headerlink" href="#sexual-orientation" title="Permanent link"></a></h2>
-<p>We originally attempted to incorporate sexual orientation fields into this change request, but after numerous calls and e-mail threads found that we could not come to a good specification that would integrate the information we expect to be available and be useful for known research.  With time and experience using SO data outside of the VDW we may realize that it can be done well (or that it&rsquo;s worth putting in a separate table).</p>
-<h1 id="anticipated-impacts">Anticipated Impacts<a class="headerlink" href="#anticipated-impacts" title="Permanent link"></a></h1>
-<h2 id="on-users">On Users<a class="headerlink" href="#on-users" title="Permanent link"></a></h2>
-<p>It would be hard to overstate the degree to which the existing <strong>gender</strong> variable is used.  There are probably far more applications that access <strong>gender</strong> than those that do not, and so we don&rsquo;t take removing it lightly.  That said, we consider the proposal a distinct improvement in that under the current spec, users don&rsquo;t actually know whether they are getting the preferred concept gender, or rather biological sex. If the change is approved, users will have much more control over their applications.</p>
-<p>We expect that there will be significant amounts of older code that will need to be revised (including 4 standard macros) for cases where either sex is really what was desired, or where the existing combination-concept scheme is preferable to a pure gender_identity field.  But the revisions will by and large be easy to make, and we judge that the short-term pain is worth the longer-term gain of conceptual clarity and additional information.  One advantage to removing the old <strong>gender</strong> field is that old code that is not rewritten will cause errors, which will call attention to the issue.</p>
-<h2 id="on-implementers">On Implementers<a class="headerlink" href="#on-implementers" title="Permanent link"></a></h2>
-<p>It will require work to identify sources for the new variables and incorporate them into existing ETL code for the Demographics file, as well as possibly disentangling gender from sex.  We anticipate that at most sites this will be a low-to-medium effort process (do please comment to let us know if this is the case).</p>
-<h2 id="on-the-workgroup">On the Workgroup<a class="headerlink" href="#on-the-workgroup" title="Permanent link"></a></h2>
-<p>We will need to revise the QA program to warn (and eventually fail) implementations that still feature the old <strong>gender</strong> field, and add checks and descriptives for the new fields.</p>
-<h1 id="request-for-feedback">Request For Feedback<a class="headerlink" href="#request-for-feedback" title="Permanent link"></a></h1>
-<h2 id="for-scientific-users">For Scientific Users<a class="headerlink" href="#for-scientific-users" title="Permanent link"></a></h2>
-<ol>
-<li>How do you expect these changes to affect your current program of research?</li>
-<li>How valuable is this information to you?</li>
-<li>Are the new variables proposed:<ol>
-<li>conceptually coherent?</li>
-<li>clearly defined?</li>
-<li>likely to be useful?</li>
-</ol>
-</li>
-</ol>
-<h2 id="for-implementers">For Implementers<a class="headerlink" href="#for-implementers" title="Permanent link"></a></h2>
-<ol>
-<li>Can you obtain the information needed for the new variables?</li>
-<li>Do you have other useful, gender-identity/sexual-orientation-relevant information in your source data that would not be well accomodated by the proposed variables?</li>
-<li>Are the new variables proposed<ol>
-<li>conceptually coherent?</li>
-<li>clearly defined?</li>
-<li>likely to be useful?</li>
-</ol>
-</li>
-<li>Can you think of a better way of storing this data for research use?</li>
-</ol></article></body></html>
+<h2 id="1-adding-the-3-new-columns">1. Adding the 3 new columns<a class="headerlink" href="#1-adding-the-3-new-columns" title="Permanent link"></a></h2>
+<p>This is the milder of the changes necessary, and so it should hopefully go down pretty easily.  We propose <strong>Thursday April 30th 2020</strong> as the due date for this implementation.</p>
+<p>Epic-using sites should recall that <a href="https://www.hcsrn.org/share/page/site/VDW/document-details?nodeRef=workspace://SpacesStore/8dd70be6-ec56-4c0e-8e9c-96c11a9dddbe">we posted code to pull the new columns out of Clarity</a> and recode them into the spec-compliant values.  (This is the code that Roy is using at KPWA, so it will likely need some tweaking, but may be useful.)</p>
+<p>In order to verify your implementation and gather statistics on e.g., just how often <code>sex_admin</code> agrees with <code>gender</code> we have written a small QA program which <a href="https://www.hcsrn.org/share/page/site/VDW/document-details?nodeRef=workspace://SpacesStore/27f7d47d-dbe5-44c4-9842-05cecc7d7a2b">can be found on the HCSRN portal at this link</a>.  Please return the results of the /share folder from that package to Roy when you are happy with your implementation.</p>
+<p>As soon as a site has implemented these new columns, we recommend sending out communications to local users explicitly deprecating the old GENDER column, and encouraging everyone to immediately switch to using the new columns.</p>
+<p>Roy will edit the VDW standard macros code to remove all references to <code>gender</code>, replacing them with <code>sex_admin</code>, and create a macro that takes <code>sex_at_birth</code> and <code>gender_identity</code> as parameters and return a value compatible with the old <code>gender</code> specification, for applications that really need the old column.  We will deploy this version of the code on the same timeline as the sites implementation.</p>
+<h2 id="2-removing-gender">2. Removing <code>gender</code><a class="headerlink" href="#2-removing-gender" title="Permanent link"></a></h2>
+<p>We propose <strong>Friday June 26th 2020</strong> as the deadline for removing <code>gender</code>.</p>
+<p>We will integrate checks for the new columns &amp; a check that GENDER no longer exists in <a href="https://www.hcsrn.org/share/page/site/VDW/document-details?nodeRef=workspace://SpacesStore/13dc5a14-4caa-4058-ade6-305c40238afa">the official QA program</a>.</p>
+<h2 id="3-run-the-hcsrn-quality-assurance-package-return-results">3. Run the HCSRN Quality Assurance Package &amp; return results<a class="headerlink" href="#3-run-the-hcsrn-quality-assurance-package-return-results" title="Permanent link"></a></h2>
+<p>We are due for a run of this anyway. We propose a due date of <strong>Friday July 31st</strong> for returning these results.</p></article></body></html>
