@@ -5,9 +5,9 @@ This repository is a proof-of-concept demonstrating what things would be like if
 ## Tables
 
 1. [Demographics](specs/_vdw_demographic.md)
-1. Language
+1. [Patient Languages](specs/_vdw_language.md)
 1. [Enrollment](specs/_vdw_enroll.md)
-1. Encounter
+1. [Encounter](specs/_vdw_utilization.md)
 1. Diagnosis
 1. Procedure
 1. Provider
