@@ -1063,10 +1063,10 @@ body .markdown-body
 .highlight .vi{color:teal}
 .highlight .il{color:#009999}
 .highlight .gc{color:#999;background-color:#EAF2F5}
-</style><title>_vdw_demographic</title></head><body><article class="markdown-body"><h1 id="demographics">DEMOGRAPHICS<a class="headerlink" href="#demographics" title="Permanent link"></a></h1>
-<p>Version = 5.0.0  Date = 11/16/2021  StdVar = &amp;_vdw_demographic</p>
-<h2 id="subject-area-description">Subject Area Description<a class="headerlink" href="#subject-area-description" title="Permanent link"></a></h2>
-<p>The DEMOGRAPHICS table contains patient/enrollee level descriptives for the people found in VDW tables.  It serves as a lookup dataset for MRNs.  Every MRN appearing in any other VDW file should appear in the Demographics table, even if demographics information on the person is unknown.</p>
+</style><title>demog_sexual_orientation</title></head><body><article class="markdown-body"><h1 id="motivation">Motivation<a class="headerlink" href="#motivation" title="Permanent link"></a></h1>
+<p>This proposal is for an enhancement to the <em>Demographics</em> specification, which should enlarge the set of studies it is possible to do with the VDW.</p>
+<h1 id="proposed-change">Proposed Change<a class="headerlink" href="#proposed-change" title="Permanent link"></a></h1>
+<p>We propose the addition of 3 new variables, all holding information on the indicated patient/member&rsquo;s Sexual Orientation.</p>
 <table>
 <thead>
 <tr>
@@ -1079,150 +1079,48 @@ body .markdown-body
 </thead>
 <tbody>
 <tr>
-<td>MRN</td>
-<td>Medical record number is the unique patient identifier within a site and should never leave the site</td>
-<td>char(*)</td>
-<td>Unique to each patient at each site</td>
-<td></td>
-</tr>
-<tr>
-<td>BIRTH_DATE</td>
-<td>The person&rsquo;s date of birth</td>
-<td>num(4)</td>
-<td>SAS Date</td>
-<td></td>
-</tr>
-<tr>
-<td>sex_admin</td>
-<td>The person’s “administrative sex”–the value stored in official/legacy sources at last ascertainment</td>
+<td>sexual_orientation[1-3]</td>
+<td>One of the patient/member&rsquo;s responses to inquiry into their sexual orientation</td>
 <td>char(1)</td>
-<td>F = Female<br>M = Male<br>X = Neither Male Nor Female<br>O = Other<br>U = Unknown /uncertain / missing</td>
-<td>Legacy sources may designate the information we mean here as either ‘sex’ or ‘gender’ without regard for the distinction between these concepts. In the absence of specific knowledge that a given legacy source codes gender identity, implementers should default to placing legacy data in this variable.<br>In general, any data collected before your organization began collecting detailed SOGI data should go in this field.<br>The workgroup expects that sex_admin will be most similar to the existing gender field in terms of having informative values on &gt;99% of records and will be the best single-field substitute for it.<br><br>This is not compatible with <a href="https://phinvads.cdc.gov/vads/ViewValueSet.action?id=06D34BBC-617F-DD11-B38D-00188B398520">PHVS_AdministrativeSex_HL7_2x</a> but should better accomodate the data we expect to be available at the sites.</td>
-</tr>
-<tr>
-<td>sex_at_birth</td>
-<td>The person’s sex as assigned at birth.</td>
-<td>char(1)</td>
-<td>F = Female<br>M = Male<br>I = Intersex<br>O = Other<br>U = Uncertain<br>, Unknown or Not recorded on birth certificate<br>C = Choose not to disclose</td>
-<td>The existence of the ‘Intersex’ and ‘Other’ options renders this incompatible with <a href="https://loinc.org/LL3324-2/">LOINC LL3324-2</a>. Those values appear in our data and are foreseeably useful enough to research that we are comfortable departing from LOINC compatibility.<br>It is expected that sex_admin may change over time as a person changes their legal and/or physical sex–this variable should not change.<br>Missing values should be coded as Unknown.</td>
-</tr>
-<tr>
-<td>gender_identity</td>
-<td>The person’s gender identity as subjectively experienced, on last ascertainment.</td>
-<td>char(2)</td>
-<td>FF = Female<br>MM = Male<br>FM = Female to Male transgender<br>MF = Male to Female transgender<br>GQ = Genderqueer or non-conforming or non-binary or genderfluid<br>OT = Other<br>ND = Choose not to disclose<br>UN = Unknown</td>
-<td>Compatible with <a href="https://phinvads.cdc.gov/vads/ViewValueSet.action?id=660779DA-64E9-E611-A856-0017A477041A">PHVS_GenderIdentity_CDC</a> and <a href="https://loinc.org/LL3322-6/">LOINC LL3322-6</a>. Values of ‘unsure/questioning’ should be coded as Other. Missing values should be coded as Unknown.</td>
-</tr>
-<tr>
-<td>RACE1 - RACE5</td>
-<td>The person&rsquo;s race. Preference is for self-reported; please see comment 1 for recording multiple race values</td>
-<td>char(2)</td>
-<td>HP = Native Hawaiian / Pacific Islander<br>IN = American Indian / Alaskan Native<br>AS = Asian<br>BA = Black or African American<br>WH = White<br>MU = Multiple races with particular unknown<br>OT = Other, values that do not fit well in any other value<br>UN = Unknown or Not Reported</td>
-<td><a href="https://www.hcsrn.org/share/page/site/VDW/document-details?nodeRef=workspace://SpacesStore/96a17742-4e93-407d-8144-11db16ee658c">Guidelines on mapping local race values to the permissible value set in the VDW</a></td>
-</tr>
-<tr>
-<td>HISPANIC</td>
-<td>Whether the person is of Hispanic origin / ethnicity</td>
-<td>char(1)</td>
-<td>Y = Yes<br>N = No<br>U = Unknown</td>
-<td></td>
-</tr>
-<tr>
-<td>NEEDS_INTERPRETER</td>
-<td>Whether the person needs an interpreter to communicate with an English-only speaker</td>
-<td>char(1)</td>
-<td>Y = Yes<br>N = No<br>U = Unknown</td>
-<td>This variable is capable of changing over time. Populate with only the most recently known interpreter status.</td>
+<td><dl><dt>B</dt><dd>Bisexual</dd><dt>T</dt><dd>Heterosexual</dd><dt>M</dt><dd>Homosexual</dd><dt>O</dt><dd>Other</dd><dt>D</dt><dd>Patient/member does not know</dd><dt>N</dt><dd>Choose not to disclose</dd><dt>U</dt><dd>Unknown (not asked/no information)</dd></dl></td>
+<td><p>Null values not allowed.</p><p>Position does not signify temporal ordering, preference, or anything else&ndash;it is entirely arbitrary.</p><p>Compatible with both PHINVADS <a href="https://phinvads.cdc.gov/vads/ViewValueSet.action?id=E0004707-45BB-E711-ACE2-0017A477041A">PHVS_SexualOrientation_CDC</a> value set and LOINC code<a href="https://loinc.org/76690-7/">76690-7</a>.</p></td>
 </tr>
 </tbody>
 </table>
-<h2 id="primary-key">Primary Key<a class="headerlink" href="#primary-key" title="Permanent link"></a></h2>
-<p>MRN</p>
-<h2 id="foreign-keys">Foreign Keys<a class="headerlink" href="#foreign-keys" title="Permanent link"></a></h2>
-<table>
-<thead>
-<tr>
-<th>Source Variable</th>
-<th>Target Table</th>
-<th>Target Field</th>
-<th>Orphans Allowed?</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>[none defined]</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link"></a></h2>
-<h3 id="race">Race<a class="headerlink" href="#race" title="Permanent link"></a></h3>
-<p>Our goal is to have the most complete, reliable, and detailed race and ethnicity information in the demographics file. SDMs should gather race information from all sources permitted at your site—for example, tumor registry data; state birth &amp; death data; and regular large-scale social surveys. If there is more than one source of race information for a set of individuals, SDMs should give preference to self-reported sources.</p>
-<p>Please see appendix A for guidelines on mapping local race values to the permissible value set in the VDW.</p>
-<p>Where multiple sources (or multiple measures from a single source) conflict as to the race of a given person, and the SDM does not have a reason to prefer one source to another (e.g., no one source is known to be most trustworthy, etc.) code all races indicated by any source.</p>
-<p>For data sources that treat Hispanic ethnicity as a value of race (so e.g., you know the person is Hispanic, but you don’t know their race) code the person’s race as &ldquo;Unknown&rdquo;.</p>
-<p>When more than one race is known for a given person, assign values to the race variables in the order listed above RACE values and fill in any unused race variables with the value UN for unknown / not reported. Examples of coding RACE1 through RACE5 are illustrated here:</p>
-<table>
-<thead>
-<tr>
-<th>Example Race Coding</th>
-<th>Race1</th>
-<th>Race2</th>
-<th>Race3</th>
-<th>Race4</th>
-<th>Race5</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>White only</td>
-<td>WH</td>
-<td>UN</td>
-<td>UN</td>
-<td>UN</td>
-<td>UN</td>
-</tr>
-<tr>
-<td>White and Pacific-Islander</td>
-<td>HP</td>
-<td>WH</td>
-<td>UN</td>
-<td>UN</td>
-<td>UN</td>
-</tr>
-<tr>
-<td>No race known</td>
-<td>UN</td>
-<td>UN</td>
-<td>UN</td>
-<td>UN</td>
-<td>UN</td>
-</tr>
-<tr>
-<td>African-American and Native-American</td>
-<td>IN</td>
-<td>BA</td>
-<td>UN</td>
-<td>UN</td>
-<td>UN</td>
-</tr>
-<tr>
-<td>Multi-racial, particular races</td>
-<td>MU</td>
-<td>UN</td>
-<td>UN</td>
-<td>UN</td>
-<td>UN</td>
-</tr>
-<tr>
-<td>not reported</td>
-<td>MU</td>
-<td>UN</td>
-<td>UN</td>
-<td>UN</td>
-<td>UN</td>
-</tr>
-</tbody>
-</table></article></body></html>
+<h1 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link"></a></h1>
+<p>In our original survey of the then-new <abbr title="Sexual Orientation and Gender Identity">SOGI</abbr> data back in 2019, we were originally daunted by Epic Systems&rsquo; EHR&rsquo;s design, which accomodates multiple values per person, but lacks any indication of e.g., which value was valid at which point in time, or which should be considered current. Because we sometimes see seemingly contradictory responses in raw data for individual patients (e.g., <em>Straight (not lesbian or gay)</em> and <em>Gay</em>) it was (and remains) puzzling how these responses can be understood.</p>
+<p>Since our 2019 effort to get a handle on SOGI data, we have come to realize that this information is worth adding even given the occasional ambiguous response.  The vast majority of responding patients give a single response.</p>
+<p>Because of this ambiguity, we make <strong>no</strong> representation with respect to the ordering of values in the 3 <code>sexual_orientation</code> columns.  They may or may not represent an ordering in time of the patient/member&rsquo;s understanding of their orientation. They may or may not represent the patient&rsquo;s relative preference ranking of the orientation descriptions.</p>
+<p>Like the rest of the SOGI data in <em>Demographics</em>, we expect these variables to be sparsely populated.</p>
+<h1 id="anticipated-impacts">Anticipated Impacts<a class="headerlink" href="#anticipated-impacts" title="Permanent link"></a></h1>
+<h2 id="on-users">On Users<a class="headerlink" href="#on-users" title="Permanent link"></a></h2>
+<p>We expect generally positive impacts on users. Applications that will benefit from knowing a persons sexual orientation should be able to use the vast majority of non-missing responses. Other applications will be unaffected.</p>
+<h2 id="on-implementers">On Implementers<a class="headerlink" href="#on-implementers" title="Permanent link"></a></h2>
+<p>Our sense is that the vast majority of information available in HCSRN Organizations&rsquo; EHRs can be accomodated in this specification, with minimal difficulty.</p>
+<p>There are some very small numbers of member/patients who have given more than 3 responses to this question, whose values must be truncated.  That seems a reasonable balance to strike against bloating the table with all or mostly null variables for the tiny proportion of people with more than three responses.</p>
+<h2 id="on-the-workgroup">On The Workgroup<a class="headerlink" href="#on-the-workgroup" title="Permanent link"></a></h2>
+<p>We will need to revise the QA program to add checks and descriptives for the new fields.</p>
+<h1 id="request-for-feedback">Request For Feedback<a class="headerlink" href="#request-for-feedback" title="Permanent link"></a></h1>
+<h2 id="for-scientific-users">For Scientific Users<a class="headerlink" href="#for-scientific-users" title="Permanent link"></a></h2>
+<ol>
+<li>How do you expect these changes to affect your current program of research?</li>
+<li>How valuable is this information to you?</li>
+<li>Are the new variables proposed:<ol>
+<li>conceptually coherent?</li>
+<li>clearly defined?</li>
+<li>likely to be useful?</li>
+</ol>
+</li>
+</ol>
+<h2 id="for-implementers">For Implementers<a class="headerlink" href="#for-implementers" title="Permanent link"></a></h2>
+<ol>
+<li>Can you obtain the information needed for the new variables?</li>
+<li>Do you have other useful, sexual-orientation-relevant information in your source data that would not be well accomodated by the proposed variables?</li>
+<li>Are the new variables proposed<ol>
+<li>conceptually coherent?</li>
+<li>clearly defined?</li>
+<li>likely to be useful?</li>
+</ol>
+</li>
+<li>Can you think of a better way of storing this data for research use?</li>
+</ol></article></body></html>
