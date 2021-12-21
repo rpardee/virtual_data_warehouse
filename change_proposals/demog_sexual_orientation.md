@@ -8,7 +8,7 @@ We propose the addition of 3 new variables, all holding information on the indic
 
 |Variable Name|Definition|Type(Len)|Values|Implementation Guidelines|
 |-------------|----------|---------|------|-------------------------|
-|sexual_orientation[1-3]|One of the patient/member's responses to inquiry into their sexual orientation|char(1)|<dl><dt>B</dt><dd>Bisexual</dd><dt>T</dt><dd>Heterosexual</dd><dt>M</dt><dd>Homosexual</dd><dt>O</dt><dd>Other</dd><dt>D</dt><dd>Patient/member does not know</dd><dt>N</dt><dd>Choose not to disclose</dd><dt>U</dt><dd>Unknown (not asked/no information)</dd></dl>|<p>Null values not allowed.</p><p>Position does not signify temporal ordering, preference, or anything else--it is entirely arbitrary.</p><p>Compatible with both PHINVADS <a href="https://phinvads.cdc.gov/vads/ViewValueSet.action?id=E0004707-45BB-E711-ACE2-0017A477041A">PHVS_SexualOrientation_CDC</a> value set and LOINC code<a href="https://loinc.org/76690-7/">76690-7</a>.</p>|
+|sexual_orientation[1-3]|The person's response(s) to inquiry into their sexual orientation|char(1)|<dl><dt>B</dt><dd>Bisexual</dd><dt>T</dt><dd>Heterosexual</dd><dt>M</dt><dd>Homosexual</dd><dt>O</dt><dd>Other</dd><dt>D</dt><dd>Patient/member does not know</dd><dt>N</dt><dd>Choose not to disclose</dd><dt>U</dt><dd>Unknown (not asked/no information)</dd></dl>|<p>Null values not allowed.</p><p>Position does not signify temporal ordering, preference, or anything else--it is entirely arbitrary.</p><p>Compatible with both PHINVADS <a href="https://phinvads.cdc.gov/vads/ViewValueSet.action?id=E0004707-45BB-E711-ACE2-0017A477041A">PHVS_SexualOrientation_CDC</a> value set and LOINC code<a href="https://loinc.org/76690-7/">76690-7</a>.</p>|
 
 # Notes
 
