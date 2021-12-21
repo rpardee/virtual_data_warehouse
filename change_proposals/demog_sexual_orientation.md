@@ -15,7 +15,7 @@ We propose the addition of 3 new variables, all holding information on the indic
 In our original survey of the then-new <abbr title="Sexual Orientation and Gender Identity">SOGI</abbr> data back in 2019, we were originally daunted by Epic Systems' EHR's design, which accomodates multiple values per person, but lacks any indication of e.g., which value(s) were
 valid at which points in time, or which should be considered current. Because we sometimes see seemingly contradictory responses in raw data for individual patients (e.g., _Straight (not lesbian or gay)_ and _Gay_) it was (and remains) puzzling how these responses can be understood.
 
-Since our 2019 effort to get a handle on SOGI data, we have come to realize that this information is worth adding even given the occasional ambiguous response.  The vast majority of responding patients give a single response.
+Since our 2019 effort to get a handle on SOGI data, we have come to realize that this information is worth adding even given the occasional ambiguous response.  The vast majority of responding patients give a single, response.
 
 Because of this ambiguity, we make **no** representation with respect to the ordering of values in the 3 `sexual_orientation` columns.  They may or may not represent an ordering in time of the patient/member's understanding of their orientation. They may or may not represent the patient's relative preference ranking of the orientation descriptions.
 
