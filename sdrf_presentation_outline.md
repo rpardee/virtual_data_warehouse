@@ -52,7 +52,15 @@ Markdown is just a set of conventions for formatting a plain text document that 
 
 You can create markdown on any device running any operating system.
 
-No horrible horrible freedom--you're limited to just a few common formatting options (headings, italics, bold, tables).
+No horrible horrible freedom--you're limited to just a few common formatting options (headings, italics, bold, tables, lists).
+
+6. You probably already know it
+
+Markdown is one of those technologies whose simplicity and openness has caused people to integrate it into other technologies.  If you've ever used:
+* reddit
+* slack
+* discord
+*
 
 > "The more constraints one imposes, the more one frees one's self of the chains that shackle the spirit."
 - Igor Stravinsky

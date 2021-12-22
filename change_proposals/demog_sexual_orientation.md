@@ -8,7 +8,7 @@ We propose the addition of 3 new variables, all holding information on the indic
 
 |Variable Name|Definition|Type(Len)|Values|Implementation Guidelines|
 |-------------|----------|---------|------|-------------------------|
-|sexual_orientation[1-3]|The person's response(s) to inquiry into their sexual orientation|char(1)|<dl><dt>B</dt><dd>Bisexual</dd><dt>T</dt><dd>Heterosexual</dd><dt>M</dt><dd>Homosexual</dd><dt>O</dt><dd>Other</dd><dt>D</dt><dd>Does not know</dd><dt>N</dt><dd>Choose not to disclose</dd><dt>U</dt><dd>Not asked/no information</dd></dl>|<p>Null values not allowed--use the `U` value to signify a lack of information.</p><p>Position does not signify temporal ordering, preference, or anything else--it is entirely arbitrary.</p><p>Compatible with both PHINVADS [PHVS_SexualOrientation_CDC](https://phinvads.cdc.gov/vads/ViewValueSet.action?id=E0004707-45BB-E711-ACE2-0017A477041A) value set and LOINC code[76690-7](https://loinc.org/76690-7/).</p><p>Also adheres to [HRSA recommendations and UDS reporting standards](https://data.hrsa.gov/tools/data-reporting).</p>|
+|sexual_orientation[1-3]|The person's response(s) to inquiry into their sexual orientation|char(1)|<dl><dt>B</dt><dd>Bisexual</dd><dt>T</dt><dd>Heterosexual</dd><dt>M</dt><dd>Homosexual</dd><dt>A</dt><dd>Asexual</dd><dt>P</dt><dd>Pansexual</dd><dt>Q</dt><dd>Queer</dd><dt>O</dt><dd>Other</dd><dt>D</dt><dd>Does not know</dd><dt>N</dt><dd>Choose not to disclose</dd><dt>U</dt><dd>Not asked/no information</dd></dl>|<p>Null values not allowed--use the `U` value to signify a lack of information.</p><p>Position does not signify temporal ordering, preference, or anything else--it is entirely arbitrary.</p><p>A superset of both PHINVADS [PHVS_SexualOrientation_CDC](https://phinvads.cdc.gov/vads/ViewValueSet.action?id=E0004707-45BB-E711-ACE2-0017A477041A) value set and LOINC code[76690-7](https://loinc.org/76690-7/).</p><p>Also adheres to [HRSA recommendations and UDS reporting standards](https://data.hrsa.gov/tools/data-reporting).</p>|
 
 # Notes
 
@@ -19,9 +19,7 @@ Since our 2019 effort to get a handle on SOGI data, we have come to realize that
 
 Because of this ambiguity, we make **no** representation with respect to the ordering of values in the 3 `sexual_orientation` columns.  They may or may not represent an ordering in time of the patient/member's understanding of their orientation. They may or may not represent the patient's relative preference ranking of the orientation descriptions.
 
-Note that the valid values currently defined are a subset of the sexual orientations you will encounter in the culture--for example, some people describe themselves as asexual or pansexual, or any of a number of other terms.  We have opted to limit the values for these values to those that member organizations are actually collecting, in order to manage users' expectations with respect to what data they will actually encounter in the VDW.  We will absolutely make further change proposals to add values if our member orgs begin collecting  more fine-grained information.
-
-Like the rest of the SOGI data in _Demographics_, we expect these variables to be sparsely populated.
+Note that our collective understanding of human sexuality, both in Medicine and in the larger culture is currently rather volatile.  The valid value list may need to be expanded in the future. For now we have settled on the superset of all values actually observed at our member organizations as we propose this variable.  Users should be aware that, like the rest of the SOGI data in _Demographics_, we expect these variables to be sparsely populated. In particular, the values beyond the HRSA recommendations (Asexual, Pansexual, Queer) are not collected at many organizations and so will be **exceedingly** rare.
 
 # Anticipated Impacts
 
