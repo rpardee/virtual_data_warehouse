@@ -1,11 +1,34 @@
-# Objectives
+# Github and the HCSRN
 
-1. Illustrate what our process(es) would be if we were to switch to markdown on github.com for our specifications
-2. review markdown format
+## Objectives
+
 3. explain github
+2. review markdown format
+1. Illustrate (with demo) what our process(es) would be if we were to switch to markdown on github.com for our specifications
 4. discuss pros and cons
 
-# Introduction
+## Introduction
+
+1. Github is a web publishing platform
+
+   * it is a medium for publishing text-based intellectual property with:
+      * an emphasis on collaboration and remixing
+      * tracking of history and individuals' contributions
+      * robust security
+      * and associated project management tools like:
+         * issues
+         * documentation
+
+   * it is currently the number one source for open-source software, supplanting sourceforge and everything that's come before it
+
+   * So it's popular enough to draw a huge audience. Is literally "where the cool kids are".
+
+   * while it is optimized for software projects, it actually has broad applicability outside that domain
+      * [Municipal code](https://arstechnica.com/tech-policy/2018/11/how-i-changed-the-law-with-a-github-pull-request/)
+      * [Crowdsourcing historical information on slave-holding congressmen](https://github.com/washingtonpost/data-congress-slaveowners)
+      * [Covid-19 data](https://github.com/nytimes/covid-19-data)
+      * I'm using it to negotiate data requests on a project--document its holdings.
+         * for that, "issues" are data requests. We have a template prompting requestors to include all the relevant information
 
 1. Why our specs are important
    * Because our data warehouse is Virtual, no single person can see/touch the whole thing at any given time.
@@ -74,4 +97,6 @@ Markdown is one of those technologies whose simplicity and openness has caused p
 
 
 
-https://arstechnica.com/tech-policy/2018/11/how-i-changed-the-law-with-a-github-pull-request/
+
+
+https://wereturtle.github.io/ghostwriter/
