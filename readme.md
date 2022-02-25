@@ -1,8 +1,8 @@
 # HCSRN Virtual Data Warehouse Data Specifications
 
-This repository is a proof-of-concept demonstrating what things would be like if we decided to host our data specifications for the <a href="https://hcsrn.org">Health Care Systems Research Network</a>'s Virtual Data Warehouse in a github repository.
+This repository is a **proof-of-concept** demonstrating what things would be like if we decided to host our data specifications for the [Health Care Systems Research Network](https://hcsrn.org)'s Virtual Data Warehouse in a _github repository_.
 
-## Tables
+## Data Tables
 
 1. [Demographics](specs/_vdw_demographic.md)
 1. [Patient Languages](specs/_vdw_language.md)
@@ -14,8 +14,6 @@ This repository is a proof-of-concept demonstrating what things would be like if
 1. Facility
 1. Pharmacy
 1. EverNDC
-1. Lab Results
-1. Lab Notes
 1. Vital Signs
 1. Social History
 1. Death
@@ -28,8 +26,11 @@ This repository is a proof-of-concept demonstrating what things would be like if
 1. PRO Types
 1. PRO Surveys
 1. PRO Survey Responses
+1. Lab Results
+1. Lab Notes
 
 ## Entity-Relationship Diagram
 
 ![VDW Entity-Relationship Diagram](images/er_diagram.png)
+
 
