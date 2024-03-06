@@ -1,7 +1,8 @@
 # Can we make list-to-table work in sublime or github?
 
-<div class="t">
+## Second level heading
 
+<div class="t">
 - - **Variable Name**
   - **Definition**
   - **Type(Len)**
@@ -48,9 +49,8 @@
     Also exceeds [HRSA recommendations and UDS reporting standards](https://data.hrsa.gov/tools/data-reporting).
 
 </div>
+<style>
 
-<!--- Applies to lists marked as class="t"      --->
-<!--- https://pborenstein.com/posts/tablehacks/ --->
 div[class~="t"] > ul
     {
     display: table;
@@ -76,4 +76,4 @@ div[class~="t"] > ul > li > ul > li
     border: 1px solid gray;
     border-collapse: collapse ;
     }
-
+</style>
