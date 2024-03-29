@@ -1,6 +1,6 @@
 # Motivation
 
-This proposal anticipates impending changes in the US Office of Management & Budget's [directive on standards for the collection of race and ethnicity](https://www.federalregister.gov/documents/2024/03/29/2024-06469/revisions-to-ombs-statistical-policy-directive-no-15-standards-for-maintaining-collecting-and). Despite the newness of this directive (it was released on 28-mar-2024) several of our member organizations (including all the Kaiser regions) are already substantially adhering to these new specifications.
+This proposal is in response to a recently released change in the US Office of Management & Budget's [directive on standards for the collection of race and ethnicity](https://www.federalregister.gov/documents/2024/03/29/2024-06469/revisions-to-ombs-statistical-policy-directive-no-15-standards-for-maintaining-collecting-and). Despite the newness of this directive (it was released on 28-mar-2024) several of our member organizations (including all the Kaiser regions) are already substantially adhering to these new specifications.
 
 ## Existing Spec
 The current spec sets out a series of 5 `race` fields, along with a single `hispanic` field intended to capture that one type of ethnicity.
@@ -15,8 +15,11 @@ The current spec sets out a series of 5 `race` fields, along with a single `hisp
 The new thinking on these concepts--as embodied in [the new OMB directive](https://www.federalregister.gov/documents/2024/03/29/2024-06469/revisions-to-ombs-statistical-policy-directive-no-15-standards-for-maintaining-collecting-and) is that:
 
 1. 'Hispanic' should actually be considered a type of `race` value.
-2. People from the Middle-East or North Africa should have their own category of race, and
-2. 'ethnicity' is a hodgepodge of national origin (either one's own or that of one's ancestors), language tradition (again, either one's own, or that of one's ancestors) and subculture.
+2. People from the Middle-East or North Africa should have their own category of race.
+
+Separate from that, looking at the ethnicity data as actually collected at KPWA (which I believe tracks the Epic foundation system pretty closely) I would add:
+
+3. 'ethnicity' is a hodgepodge of national origin (either one's own or that of one's ancestors), language tradition (again, either one's own, or that of one's ancestors) and subculture.
 
 Several HCSRN organizations are already characterizing their patients/enrollees in these terms, either because they are collecting this information by the new methods, or because they are inferring/imputing the new categories from language preferences (or both). With the advent of the new OMB directive, we anticipate all member organizations will begin primary collection of race/ethnicity data according to this directive, and so it makes sense to alter our VDW demographic specification to accomodate this additional information. Fortunately, there is no fundamental incompatibility between our existing spec and the new directive.
 
@@ -59,5 +62,6 @@ Because we have a tradition of filling in the race fields in something like reve
     * Does anyone know of a coded standard for ethnicity? I have been unable to find one.
     * We could do a round of metadata survey/exploration & collate all the values in use at the sites and come up with our own coded standard. Is that worth doing?
     * another idea would be to just code up the modal (and perhaps especially interesting?) values accross sites & lump all the rest into an 'other' type value.
+    * **or** we could turf this data off into yet another table (which would only have records for MRNs whose ethnicity we know something about).
 2. Maybe rip the band-aid right off & actually remove the `hispanic` field?
 3. Do we want to argue over the preference rankings?
