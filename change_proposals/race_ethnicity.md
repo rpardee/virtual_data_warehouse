@@ -46,6 +46,50 @@ In addition to being able to accomodate more different specific values of race t
 
 It would also save us 3 bytes of storage per record.
 
+## Anticipated Questions
+
+Q: What do we do for the many many applications (including NIH-required enrollment reports) that require race information to be condensed down to a single value per person?
+
+A: This is of course also an issue with our current array of 5 `race` fields. As part of the rollout of the proposed change, we will write a standard macro that will return a single value, according to the following rules:
+
+1. If there is > 1 'Y' values among the 7 `r_*` fields, it will return the value 'MU', for multiple races.
+2. Otherwise it will search the fields in the order listed, returning one of the following values (compatible with the current spec):
+
+|First 'Y' in|Return Value|
+|------------|------------|
+|r_hipac|HP|
+|r_naan|IN|
+|r_asian|AS|
+|r_black|BA|
+|r_white|WH|
+|r_hisp|HS|
+|r_mena|MN|
+|r_other|OT|
+
+So, something like:
+
+```sas
+data outset ;
+  length all_race_flags $ 10 summary_race $ 2 ;
+  set inset ;
+  all_race_flags = upcase(cats(of r_:)) ;
+  if countc(all_race_flags, 'Y') > 1 then summary_race = 'MU' ;
+  else select('Y') ;
+    when(r_hipac) summary_race = 'HP' ;
+    when(r_naan)  summary_race = 'IN' ;
+    when(r_asian) summary_race = 'AS' ;
+    when(r_black) summary_race = 'BA' ;
+    when(r_white) summary_race = 'WH' ;
+    when(r_hisp)  summary_race = 'HS' ;
+    when(r_mena)  summary_race = 'MN' ;
+    when(r_other) summary_race = 'OT' ;
+    otherwise     summary_race = 'UN' ;
+  end ;
+  label summary_race = 'Summary of the information in the individual race flags--see the individual flags for the true picture' ;
+  drop all_race_flags ;
+run ;
+```
+
 # Questions for VIG
 
 1. Does it make sense to make a place for the fine-grained ethnicity data many of our sites are collecting? That's going to take up a lot of space if we wanted to put it in demog.
