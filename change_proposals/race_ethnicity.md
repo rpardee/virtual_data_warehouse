@@ -58,12 +58,12 @@ A: This is of course also an issue with our current array of 5 `race` fields. As
 |First 'Y' in|Return Value|
 |------------|------------|
 |r_hipac|HP|
+|r_mena|MN|
 |r_naan|IN|
 |r_asian|AS|
 |r_black|BA|
-|r_white|WH|
 |r_hisp|HS|
-|r_mena|MN|
+|r_white|WH|
 |r_other|OT|
 
 So, something like:
@@ -76,12 +76,12 @@ data outset ;
   if countc(all_race_flags, 'Y') > 1 then summary_race = 'MU' ;
   else select('Y') ;
     when(r_hipac) summary_race = 'HP' ;
+    when(r_mena)  summary_race = 'MN' ;
     when(r_naan)  summary_race = 'IN' ;
     when(r_asian) summary_race = 'AS' ;
     when(r_black) summary_race = 'BA' ;
-    when(r_white) summary_race = 'WH' ;
     when(r_hisp)  summary_race = 'HS' ;
-    when(r_mena)  summary_race = 'MN' ;
+    when(r_white) summary_race = 'WH' ;
     when(r_other) summary_race = 'OT' ;
     otherwise     summary_race = 'UN' ;
   end ;
