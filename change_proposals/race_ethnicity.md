@@ -28,62 +28,73 @@ This change gives us occasion to reconsider the design of our race data, and rat
 Specifically, the propsal is to:
 
 1. Rename `hispanic` to r_hisp
-2. Deprecate the existing `race-5` fields.
-3. Add an array of independent race fields, one for each race category. Specifically
+2. Deprecate the existing `race1-5` fields.
+3. Add an array of independent race fields, one for each race category.
+4. Add a single field that summarizes the information in the flags.
 
-|Field Name|Definition|Type(len)|Values|Implementation Guidelines|
-|----------|----------|---------|------|-------------------------|
-|r_hipac |Whether the person on this record is of Hawaiian or Pacific Islander race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
-|r_naan  |Whether the person on this record is of Native American or Alaskan Native race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
-|r_asian |Whether the person on this record is of Asian race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
-|r_black |Whether the person on this record is of Black or African American race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
-|r_white |Whether the person on this record is of White race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
-|r_hisp  |Whether the person on this record is of Hispanic race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
-|r_mena  |Whether the person on this record is of Middle-Eastern or North African race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
-|r_other |Whether the person on this record is of some other race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
+### New Fields
+
+|Field Name  |Definition|Type(len)|Values|Implementation Guidelines|
+|------------|----------|---------|------|-------------------------|
+|r_hipac     |Whether the person on this record is of Hawaiian or Pacific Islander race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
+|r_naan      |Whether the person on this record is of Native American or Alaskan Native race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
+|r_asian     |Whether the person on this record is of Asian race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
+|r_black     |Whether the person on this record is of Black or African American race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
+|r_hisp      |Whether the person on this record is of Hispanic race.|char(1)| Y = Yes<br>N = No<br>U = Unknown|(This is just the existing `hispanic` field renamed.)|
+|r_mena      |Whether the person on this record is of Middle-Eastern or North African race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
+|r_white     |Whether the person on this record is of White race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
+|r_mult      |Whether the person on this record belongs to multiple racial groups, but the individual groups are unknown|char(1)| Y = Yes<br>N = No<br>U = Unknown|This is only to be used when the source data convey that the person is multi-race, but does not include information on what those multiple races are. It is ***not*** an indicator that e.g., more than one of the other `r_*` flags are set to 'Y'.|
+|r_other     |Whether the person on this record is of some other race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
+|summary_race|Summary of the information in the individual race flags--see the individual flags for the true picture|char(2)|AS = Asian<br>BA = Black or African American<br>HP = Native Hawaiian / Pacific Islander<br>HS = Hispanic or Latino/Latina<br>IN = American Indian / Alaskan Native<br>MN = Middle-Eastern or North African<br>WH = White<br>MU = Multiple races, ***whether or not*** the particular races are known<br>OT = Other, values that do not fit well in any other value<br>UN = Unknown or Not Reported<br>|Added in recognition that the vast majority of uses of race information require each person to be assigned to one and only one category. Implementation is according to the best information available at the site--this spec does not require any particular algorithm.<br><br>In particular, *if timing information is available at the site*, implementers may want to consider timing of responses to discern whether a value of 'other' in early data was a substitute for one of the new categories. |
+
 
 In addition to being able to accomodate more different specific values of race than the prior array of 5 race variables, this structure also gets us out of the business of specifying a hierarchy giving the order that values should appear in race 1, 2, 3 etc. fields.
 
-It would also save us 3 bytes of storage per record.
-
 ## Anticipated Questions
 
-Q: What do we do for the many many applications (including NIH-required enrollment reports) that require race information to be condensed down to a single value per person?
+Q: How should I implement `summary_race`? I do not have information regarding the timing of responses.
 
-A: This is of course also an issue with our current array of 5 `race` fields. As part of the rollout of the proposed change, we will write a standard macro that will return a single value, according to the following rules:
+A: Here is one possible way to implement:
 
-1. If there is > 1 'Y' values among the 7 `r_*` fields, it will return the value 'MU', for multiple races.
-2. Otherwise it will search the fields in the order listed, returning one of the following values (compatible with the current spec):
+1. If none of the `r_*` field flags are set to 'Y', use 'UN' for unknown.
+2. If exactly 1 flag is 'Y', use the corresponding value from the spec.
+3. If > 1 of the flags are 'Y' use the value 'MU' (multiple races).
 
-|First 'Y' in|Return Value|
+|First 'Y' in|Summary Value|
 |------------|------------|
 |r_hipac|HP|
-|r_mena|MN|
 |r_naan|IN|
 |r_asian|AS|
 |r_black|BA|
 |r_hisp|HS|
+|r_mena|MN|
 |r_white|WH|
+|r_mult|MU|
 |r_other|OT|
 
 So, something like:
 
 ```sas
-data outset ;
+data my_demog ;
   length all_race_flags $ 10 summary_race $ 2 ;
   set inset ;
   all_race_flags = upcase(cats(of r_:)) ;
-  if countc(all_race_flags, 'Y') > 1 then summary_race = 'MU' ;
-  else select('Y') ;
-    when(r_hipac) summary_race = 'HP' ;
-    when(r_mena)  summary_race = 'MN' ;
-    when(r_naan)  summary_race = 'IN' ;
-    when(r_asian) summary_race = 'AS' ;
-    when(r_black) summary_race = 'BA' ;
-    when(r_hisp)  summary_race = 'HS' ;
-    when(r_white) summary_race = 'WH' ;
-    when(r_other) summary_race = 'OT' ;
-    otherwise     summary_race = 'UN' ;
+  * How many race flags are set? ;
+  select(countc(all_race_flags, 'Y')) ;
+    when(0) summary_race = 'UN' ; * no flags set--unknown ;
+    when(1) select('Y') ; * just one flag--which one? ;
+      when(r_hipac) summary_race = 'HP' ;
+      when(r_mena)  summary_race = 'MN' ;
+      when(r_naan)  summary_race = 'IN' ;
+      when(r_asian) summary_race = 'AS' ;
+      when(r_black) summary_race = 'BA' ;
+      when(r_hisp)  summary_race = 'HS' ;
+      when(r_white) summary_race = 'WH' ;
+      when(r_mult)  summary_race = 'MU' ;
+      when(r_other) summary_race = 'OT' ;
+      otherwise     summary_race = 'UN' ;
+    end ;
+    otherwise       summary_race = 'MU' ; * multiple flags are set ;
   end ;
   label summary_race = 'Summary of the information in the individual race flags--see the individual flags for the true picture' ;
   drop all_race_flags ;
