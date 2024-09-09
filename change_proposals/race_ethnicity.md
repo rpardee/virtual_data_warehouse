@@ -5,8 +5,8 @@ This proposal is in response to a recently released change in the US Office of M
 ## Existing Spec
 The current spec sets out a series of 5 `race` fields, along with a single `hispanic` field intended to capture that one type of ethnicity.
 
-| Field Name      | Definition                                                                                                  | Type(Len) | Values                                                                                                                                                                                                                                                                                      | Implementation Guidelines                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ------------------ | ----------------------------------------------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Field Name         | Definition                                                                                                  | Type(Len) | Values                                                                                                                                                                                                                                                                                      | Implementation Guidelines                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| -------------------| ----------------------------------------------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | race1 - race5      | The person's race. Preference is for self-reported; please see comment 1 for recording multiple race values | char(2)   | HP = Native Hawaiian / Pacific Islander<br>IN = American Indian / Alaskan Native<br>AS = Asian<br>BA = Black or African American<br>WH = White<br>MU = Multiple races with particular unknown<br>OT = Other, values that do not fit well in any other value<br>UN = Unknown or Not Reported | Fill in the values in the same order as the races are listed in the valid values column. [Guidelines on mapping local race values to the permissible value set in the VDW](https://hcsrnvdw.sharepoint.com/:x:/r/sites/hcsrn-vdw/_layouts/15/Doc.aspx?sourcedoc=%7B8A279712-2456-5230-816F-CF9979A62876%7D&file=Appendix%20E.xlsx&action=default&mobileredirect=true)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | hispanic           | Whether the person is of Hispanic origin / ethnicity                                                        | char(1)   | Y = Yes<br>N = No<br>U = Unknown                                                                                                                                                                                                                                                            |
 
@@ -19,7 +19,7 @@ The new thinking on these concepts--as embodied in [the new OMB directive](https
 
 Separate from that, looking at the ethnicity data as actually collected at KPWA (which I believe tracks the Epic foundation system pretty closely) I would add:
 
-3. 'ethnicity' is a hodgepodge of national origin (either one's own or that of one's ancestors), language tradition (again, either one's own, or that of one's ancestors) and subculture.
+3. 'ethnicity' is a hodgepodge of national origin (either one's own or that of one's ancestors), language tradition (again, either one's own, or that of one's ancestors) and subculture. We will follow-up with an additional change request that accomodates the fine-grained ethnicity data available at HCSRN member sites.
 
 Several HCSRN organizations are already characterizing their patients/enrollees in these terms, either because they are collecting this information by the new methods, or because they are inferring/imputing the new categories from language preferences (or both). With the advent of the new OMB directive, we anticipate all member organizations will begin primary collection of race/ethnicity data according to this directive, and so it makes sense to alter our VDW demographic specification to accomodate this additional information. Fortunately, there is no fundamental incompatibility between our existing spec and the new directive.
 
@@ -101,11 +101,23 @@ data my_demog ;
 run ;
 ```
 
-# Questions for VIG
+# Request For Feedback
 
-1. Does it make sense to make a place for the fine-grained ethnicity data many of our sites are collecting? That's going to take up a lot of space if we wanted to put it in demog.
-    * Are there likely to be multi-site studies that would use this data?
-    * Does anyone know of a coded standard for ethnicity? I have been unable to find one.
-    * We could do a round of metadata survey/exploration & collate all the values in use at the sites and come up with our own coded standard. Is that worth doing?
-    * another idea would be to just code up the modal (and perhaps especially interesting?) values accross sites & lump all the rest into an 'other' type value.
-    * **or** we could turf this data off into yet another table (which would only have records for MRNs whose ethnicity we know something about).
+## For Scientific Users
+
+1. How do you expect these changes to affect your current program of research?
+2. How valuable is this information to you?
+3. Are the new variables proposed:
+    1. conceptually coherent?
+    2. clearly defined?
+    3. likely to be useful?
+
+## For Implementers
+
+1. Can you obtain the information needed for the new variables?
+1. Do you have other useful, race-relevant information in your source data that would not be well accomodated by the proposed variables?
+3. Are the new variables proposed
+    1. conceptually coherent?
+    1. clearly defined?
+    1. likely to be useful?
+3. Can you think of a better way of storing this data for research use?
