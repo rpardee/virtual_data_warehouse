@@ -36,7 +36,7 @@ Specifically, the propsal is to:
 
 |Field Name  |Definition|Type(len)|Values|Implementation Guidelines|
 |------------|----------|---------|------|-------------------------|
-|r_hipac     |Whether the person on this record is of Hawaiian or Pacific Islander race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
+|r_nhopi     |Whether the person on this record is of Native Hawaiian or Other Pacific Islander race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
 |r_naan      |Whether the person on this record is of Native American or Alaskan Native race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
 |r_asian     |Whether the person on this record is of Asian race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
 |r_black     |Whether the person on this record is of Black or African American race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
@@ -45,7 +45,7 @@ Specifically, the propsal is to:
 |r_white     |Whether the person on this record is of White race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
 |r_mult      |Whether the person on this record belongs to multiple racial groups, but the individual groups are unknown|char(1)| Y = Yes<br>N = No<br>U = Unknown|This is only to be used when the source data convey that the person is multi-race, but does not include information on what those multiple races are. It is ***not*** an indicator that e.g., more than one of the other `r_*` flags are set to 'Y'.|
 |r_other     |Whether the person on this record is of some other race.|char(1)| Y = Yes<br>N = No<br>U = Unknown||
-|summary_race|Summary of the information in the individual race flags--see the individual flags for the true picture|char(2)|AS = Asian<br>BA = Black or African American<br>HP = Native Hawaiian / Pacific Islander<br>HS = Hispanic or Latino/Latina<br>IN = American Indian / Alaskan Native<br>MN = Middle-Eastern or North African<br>WH = White<br>MU = Multiple races, ***whether or not*** the particular races are known<br>OT = Other, values that do not fit well in any other value<br>UN = Unknown or Not Reported<br>|Added in recognition that the vast majority of uses of race information require each person to be assigned to one and only one category. Implementation is according to the best information available at the site--this spec does not require any particular algorithm.<br><br>In particular, *if timing information is available at the site*, implementers may want to consider timing of responses to discern whether a value of 'other' in early data was a substitute for one of the new categories. |
+|summary_race|Summary of the information in the individual race flags--see the individual flags for the true picture|char(2)|AS = Asian<br>BA = Black or African American<br>HP = Native Hawaiian / Pacific Islander<br>HS = Hispanic or Latino/Latina<br>IN = American Indian / Alaskan Native<br>MN = Middle-Eastern or North African<br>WH = White<br>MU = Multiple races, ***whether or not*** the particular races are known<br>OT = Other, values that do not fit well in any other value<br>UN = Unknown or Not Reported<br>|Added in recognition that the vast majority of uses of race information require each person to be assigned to one and only one category. Implementation is according to the best information available at the site--this spec does not require any particular algorithm.<br><br>In particular, *if timing information is available at the site*, implementers may want to consider timing of responses to discern whether a value of 'other' in early data was a substitute for one of the new categories.<br><br>Note that because the available source data will vary across sites, the implementation of this variable will also vary. If absolute consistency is important to a project, users are advised to implement their own summary field from the source flags.|
 
 
 In addition to being able to accomodate more different specific values of race than the prior array of 5 race variables, this structure also gets us out of the business of specifying a hierarchy giving the order that values should appear in race 1, 2, 3 etc. fields.
@@ -62,7 +62,7 @@ A: Here is one possible way to implement:
 
 |First 'Y' in|Summary Value|
 |------------|------------|
-|r_hipac|HP|
+|r_nhopi|HP|
 |r_naan|IN|
 |r_asian|AS|
 |r_black|BA|
@@ -83,7 +83,7 @@ data my_demog ;
   select(countc(all_race_flags, 'Y')) ;
     when(0) summary_race = 'UN' ; * no flags set--unknown ;
     when(1) select('Y') ; * just one flag--which one? ;
-      when(r_hipac) summary_race = 'HP' ;
+      when(r_nhopi) summary_race = 'HP' ;
       when(r_mena)  summary_race = 'MN' ;
       when(r_naan)  summary_race = 'IN' ;
       when(r_asian) summary_race = 'AS' ;
