@@ -12,7 +12,7 @@ We propose adding a new table, very like the current `_vdw_language` table, to h
 
 ### The New Table
 
-The `ethnicity` table will contain information on patients' ethnic backgrounds. There is one record per person per known ethnicity. People on whom you have no ethnicity information should not be included in the table.
+The `_vdw_ethnicity` table will contain information on patients' ethnic backgrounds. There is one record per person per known ethnicity. People on whom you have no ethnicity information should not be included in the table.
 
 | Variable Name | Definition                                                                                           | Type(Len) | Values                                                                                                                                  | Implementation Guidelines |
 | ------------- | ---------------------------------------------------------------------------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
