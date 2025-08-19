@@ -17,7 +17,7 @@ The `_vdw_ethnicity` table will contain information on patients' ethnic backgrou
 | Variable Name | Definition                                                                                           | Type(Len) | Values                                                                                                                                  | Implementation Guidelines |
 | ------------- | ---------------------------------------------------------------------------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
 | mrn           | Medical record number is the unique patient identifier within a site and should never leave the site | char(\*)  | Unique to each patient at each site                                                                                                     |                           |
-| ethncity      | A free-text description of the ethnic background.                                                    | char(\*)  | Any non-null value| Misspellings should be corrected (e.g. 'Fijan' should be changed to 'Fijian')                          |
+| ethnicity      | A free-text description of the ethnic background.                                                    | char(\*)  | Any non-null value| Misspellings should be corrected (e.g. 'Fijan' should be changed to 'Fijian')                          |
 
 ## Primary Key
 mrn + ethnicity
