@@ -17,7 +17,7 @@ The `_vdw_ethnicity` table will contain information on patients' ethnic backgrou
 | Variable Name | Definition                                                                                           | Type(Len) | Values                                                                                                                                  | Implementation Guidelines |
 | ------------- | ---------------------------------------------------------------------------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
 | mrn           | Medical record number is the unique patient identifier within a site and should never leave the site | char(\*)  | Unique to each patient at each site                                                                                                     |                           |
-| ethncity      | A free-text description of the ethnic background.                                                    | char(\*)  | Any non-null value| Misspellings should be corrected (e.g. 'Fijan' should be changed to 'Fijian')                          |
+| ethnicity      | A free-text description of the ethnic background.                                                    | char(\*)  | Any non-null value| Misspellings should be corrected (e.g. 'Fijan' should be changed to 'Fijian')                          |
 
 ## Primary Key
 mrn + ethnicity
@@ -33,6 +33,18 @@ mrn + ethnicity
 Q: Can't the values be standardized?
 
 A: Unfortunately we were unable to find any existing standard that would accomodate [the wide variety of values seen in our source data.](https://hcsrnvdw.sharepoint.com/:u:/r/sites/VIG/Shared%20Documents/Enrollment%20and%20Demographics/clarity_ethnicity_collate.html?csf=1&web=1&e=jrLbf7) In the absence of expert guidance on collecting this data we are opting to at least start out making the data available for multi-site projects as free-text. As the data get used and users advise us we may opt to standardize further.
+
+## Anticipated Impacts
+
+### On Users
+We expect that users will appreciate having access to this data for their multi-site projects.
+
+### On Implementers
+Given the simplicity of the spec and its tolerance of fairly unconstrained free-text values, we expect this will be a small-to-medium lift for implementation and maintenance.
+
+### On The Workgroup
+
+Adding this table to the existing enroll/demog/language QA will be very little work.
 
 # Request For Feedback
 ## For Scientific Users
