@@ -1,0 +1,120 @@
+# Appendix B - Plan Type & Insurance Type Descriptions
+
+## Plan Types
+
+### Plan_HMO - Health Maintenance Organization
+
+A health care system that assumes both the financial risks associated with providing comprehensive medical services (insurance and service risk) and the responsibility for health care delivery in a particular geographic area to HMO members, usually in return for a fixed, prepaid fee. Financial risk may be shared with the providers participating in the HMO. An HMO is accountable for assessing access and ensuring quality and appropriate care. Practitioners affiliated with the health care system render health care services. In this type of organization, members must obtain all services from affiliated practitioners and must usually comply with a predefined authorization system to receive reimbursement.
+
+Examples of HMO Models Include:
+
+- Group Model HMO - An HMO that contracts with a single multi-specialty medical group to provide care to the HMO's membership. The group practice may work exclusively with the HMO, or it may provide services to non-HMO patients as well. The HMO pays the medical group a negotiated, per capita rate, which the group distributes among its physicians, usually on a salaried basis.
+- Staff Model HMO - A type of closed-panel HMO (where patients can receive services only through a limited number of providers) in which physicians are employees of the HMO. The physicians see patients in the HMO's own facilities.
+- Network Model HMO - An HMO model that contracts with multiple physician groups to provide services to HMO members; may involve large single and multispecialty groups. The physician groups may provide services to both HMO and non-HMO plan participants.
+- Individual Practice Association (IPA) HMO- A type of health care provider organization composed of a group of independent practicing physicians who maintain their own offices and band together for the purpose of contracting their services to HMOs. An IPA may contract with and provide services to both HMO and non-HMO plan participants.
+
+### Plan_POS - Point of Service
+
+A Point-of-Service (POS) plan is a type of managed care plan that gives a member the option of seeing providers within the plan's network and paying only a copay amount, or seeing providers outside of the network and getting reimbursed as one would under an indemnity plan. A POS plan is often referred to as an 'HMO with an opt-out option', an 'open-ended HMO', "HMO swing-out organization" or an "HMO/PPO" hybrid. POS Plans typically resemble HMO plans for in-network services. Services received outside of the network are usually reimbursed in a manner similar to conventional indemnity plans (e.g., provider reimbursement based on a fee schedule or usual, customary and reasonable charges). Both a members' level of benefits and reimbursement are generally determined by whether the member uses in-network or out-of-network services.
+
+### Plan_PPO Preferred Provider Organization
+
+A PPO, Preferred Provider Organization, is similar to an HMO as there is a network of managed practitioners, but unlike an HMO in that a member is not limited to network practitioners and can see any provider they choose. However, co-payments and deductibles will be less for in-network services. In addition, network physicians agree to reasonable charges. Therefore, if an out-of-network physician charges more for services, the insurance company will still pay only 80% of the in-network charges. The member will often pay higher fees for out-of-network services. Members who go outside the network might incur larger costs in the form of higher deductibles, higher coinsurance rates, or nondiscounted charges from the providers.
+
+### Plan_Indemnity - Indemnity Insurance Plan
+
+Indemnity is a type of medical plan that reimburses the patient and/or provider as expenses are incurred. Conventional indemnity plans allow members the choice of any provider without effect on reimbursement. These plans reimburse the patient and/or provider as expenses are incurred.
+
+An example of an Indemnity arrangement is that the member is responsible for paying a deductible before insurance pays benefits. Then, the insurance company will pay 80% of the medical bills and the member would be responsible for the remaining 20%. The member can choose to go to any doctor or hospital to receive services, pay the provider directly, and then be reimbursed 80% of the bill by the insurance company. The member can sign a release requesting the insurance company pay the health provider directly and would then be responsible for paying the doctor or hospital the remaining 20%. When people speak about "traditional health insurance," they are referring to Indemnity Health Insurance.
+
+## Plan Type Implementation Guidelines
+
+<div class="joplin-table-wrapper"><table><tbody><tr><th><p><strong>Type</strong></p></th><th><p><strong>Distinguishing Characteristics</strong></p></th><th><p><strong>Comments</strong></p></th></tr><tr><td><p>HMO Health Maintenance Organization (synonym: Managed Care Organization)</p></td><td><p>Under the Federal HMO Act, an entity must have four characteristics to call itself an HMO:</p><ol><li>An organized system of providing health care in a geographic area, for which the HMO is responsible for providing or otherwise assuring delivery.</li><li>An agreed upon set of basic and supplemental health maintenance and treatment services.</li><li>A voluntary enrolled group of people</li><li>It must use a <a href="http://en.wikipedia.org/wiki/Community_rating">community rating</a> method for setting premiums.</li></ol><p>Additionally, what we mean by 'HMO' for purposes of the plan_hmo variable entails:</p><ul><li>A single organization is both <em>liable for the costs</em> of medical care to its members, as well as responsible for<em> actually providing</em> the vast majority of that care.  So the <em>insurer</em> and<em> provider</em> roles are unified in a single organization.</li><li>This organization operates one or more clinics where it provides care to its members (though not necessarily <em>exclusively</em> to members).</li><li>Member care is managed/coordinated. The org has a financial incentive to make sure care is appropriate, as well as an incentive (and the means) to prevent illness.</li><li>Members choose or are assigned a primary care provider (PCP), who manages their care.</li></ul></td><td><p>In broad terms, an HMO is a form of health insurance that is also responsible for the delivery of care to its beneficiaries. An HMO provides health care services for members who prepay a premium that generally covers a comprehensive range of both inpatient and ambulatory care with limited copayments. "Care" here is primary care, so referrals out for specialty are <em>not</em> inconsistent w/HMO plans. Traditionally, there have been four main types, or models, of HMOs, classified according to the financial and organizational arrangements between the HMO and its physicians, although most HMOs today represent a combination of two or more models.</p><p>A STAFF MODEL HMO hires its physicians individually and pays them a salary to practice in the HMO facility or clinic. The physicians are subject to the policies of the HMO management. Staff model HMOs often also own hospitals, nursing homes, pharmacies, laboratories, imaging centers, etc., as part of the fully integrated care system. This is the oldest model of HMO, and usually the most cost-efficient.</p><p>In a GROUP MODEL HMO, the HMO contracts with a medical group and pays them a set amount per patient to provide a specified range of services. The medical group determines the compensation of each individual physician in the practice, often sharing profits. The practice may be located in a hospital or clinic setting. Like staff model HMOs, the medical facility usually contains a pharmacy, but, in some cases, the HMO contracts for pharmacy services. Some group model HMO's also own hospitals.</p><p>An INDEPENDENT PRACTICE ASSOCIATION (IPA) contracts with individual physicians who see HMO members, as well as patients covered by other types of health insurance, in their own private offices. It is the ability of IPA physicians to see both HMO and private patients in their own offices that principally differentiates an IPA from a group or staff HMO. Physicians in an IPA are paid on either a capitation or modified fee-for-services basis. An IPA HMO may also contract with chain or independent pharmacies to dispense prescriptions to members.</p><p>A NETWORK MODEL HMO is essentially a network of group practices rather than individual physicians. Each of the contracted group practices sees HMO patients as well as fee-for-service patients in its group offices.</p><p>A HYBRID MODEL HMO combines attributes of more than one of the four principal HMO models and, hence, is not classifiable in any one of the four categories. Because physicians in Staff and Group model HMOs traditionally have had a few, if any, fee-for-service patients of their own, both models are often referred to as<em>closed panel HMOs.</em> Any organization that matches one of these descriptions is an 'HMO' for purposes of the plan_hmo variable.</p></td></tr><tr><td><p>POS Point-Of-Service</p></td><td><p>There are at least 2 defined groups of providers that a patient can see for covered care:</p><ul><li>a group that practices at clinics owned/operated by the insurer (HMO-style)</li><li>a set of providers that practice at other, independent clinics, but who have an explicit relationship w/the insurer (agreed-upon fees, maybe data transfers, etc.)</li></ul><p>As in an HMO, the care is "managed"-patients choose a PCP.</p><p>A POS plan is a hybrid model that combines features of both prepaid and indemnity insurance. Enrollees decide whether to use network or non-network providers at the time care is needed but are usually charged sizable copayments for selecting the latter. Variants include "open-ended HMOs" and "triple-option plans".</p></td><td><p>If there is additional coverage that can be used with <strong>any</strong> provider at all (not limited to any defined group) then that is indemnity coverage, which should be noted separately in plan_indemnity. This is a very common situation.</p></td></tr><tr><td><p>PPO Preferred Provider Organization</p></td><td><p>A PPO is</p><ul><li>A group of otherwise independent providers that all agree to charge members according to a negotiated fee schedule, <em>plus</em></li><li>An insurer who accepts premiums in exchange for coverage according to that fee schedule.</li><li>Enrollees are offered a financial incentive to use doctors on the preferred list. Typically, the enrollees must pay a deductible and copayment amount of money if they receive care from a provider who is not part of the PPO.</li></ul><p>The provider group and the insurer are not the same organization (if they were this would be an HMO). Care is usually managed.</p></td><td><p>Providers are almost always paid on a fee-for-service basis (as opposed to capitated). There is almost always additional indemnity coverage for care from providers outside the PPO-this should be noted in plan_indemnity.</p></td></tr><tr><td><p>Indemnity</p></td><td><p>There is no defined group of providers that the insured must see in order to have coverage.</p><p>There is less emphasis on managing or coordinating the care.</p><p>Insurance benefits paid according to a predetermined fee schedule in the event of a covered loss.</p></td><td></td></tr></tbody></table></div>
+
+## Insurance Types
+
+### Self-Funded Insurance
+
+A plan offered by employers who directly assume the major cost of health insurance for their employees. Some self-insured plans bear the entire risk. Other self-insured employers insure against large claims by purchasing stop-loss coverage. Some self-insured employers contract with insurance carriers or third party administrators for claims processing and other administrative services; other self-insured plans are self administered. Minimum Premium Plans (MPP) are included in the self-insured health plan category. All types of plans (Indemnity, PPO, HMO, and POS) can be financed on a self-insured basis.
+
+### High-Deductible Health Plan Insurance
+
+A High Deductible Health Plan is a health insurance plan in which the enrollee plays a deductible of at least  $1,150 (Self Only coverage) or  $2,300 (family coverage). The annual out-of-pocket amount (including deductibles and copayments) the enrollee pays cannot exceed  $5,800 (Self Only coverage) or  $11,600 (family coverage). HDHPs can have first dollar coverage (no deductible) for preventive care and higher out-of-pocket copayments and coinsurance for services received from non-network providers. HDHPs offered by the FEHB Program establish and partially fund Healthcare Spending Accounts (HSAs) for all eligible enrollees and provide a comparable Health Reimbursement Account (HRA) for enrollees who are eligible for an HSA. The HSA premium funding or HRA credit amounts vary by plan.
+
+The dollar limits on these deductibles are tied to the cost of living index, and change from year to year. If your indigenous data does not flag plans eligible as HDHPs, please refer to the table on [this Wikipedia page](http://en.wikipedia.org/wiki/High-deductible_health_plan), (reproduced below as of this writing).
+
+| **Year** | **Minimum deductible (single)** | **Minimum deductible (family)** | **Maximum out-of-pocket (single)** | **Maximum out-of-pocket (family)** |
+| -------- | ------------------------------- | ------------------------------- | ---------------------------------- | ---------------------------------- |
+| 2005     |  $1,000                         |  $2,000                         |  $5,100                            |  $10,200                           |
+| 2006     |  $1,050                         |  $2,100                         |  $5,250                            |  $10,500                           |
+| 2007     |  $1,100                         |  $2,200                         |  $5,500                            |  $11,000                           |
+| 2008     |  $1,100                         |  $2,200                         |  $5,600                            |  $11,200                           |
+| 2009     |  $1,150                         |  $2,300                         |  $5,800                            |  $11,600                           |
+| 2010     |  $1,200                         |  $2,400                         |  $5,950                            |  $11,900                           |
+| 2011     |  $1,200                         |  $2,400                         |  $5,950                            |  $11,900                           |
+| 2012     |  $1,200                         |  $2,400                         |  $6,050                            |  $12,100                           |
+| 2013     |  $1,250                         |  $2,500                         |  $6,250                            |  $12,500                           |
+
+### Commercial Insurance
+
+Commercial insurance is generally sold to large groups, such as employers or trade associations. These groups generally have enough purchasing power to get the insurance company to tailor the coverage in particular ways (e.g., they may want to include gender affirming treatment benefits, or exclude coverage of birth control).
+
+### Private Pay Insurance
+
+The thing being "privately paid" here is the insurance _premium_. This is not to be confused with obtaining care on a fee-for-service basis (in which case the patient is often uninsured). This insurance is most often sold to individuals and families, and is generally offered as standard, one-size-fits-all plans with little variation.
+
+### Medicare Insurance
+
+#### Varieties
+
+Medicare Risk (aka Medicare+Choice) coverage-individuals who are eligible for Medicare and have elected to join the participating HMO under a Medicare+Choice risk contract. To be Medicare eligible, an individual has to be age 65 or older and have paid in sufficient FICA quarters over their work history, or be permanently and totally disabled such that employment in any job is not possible. Note that persons diagnosed with End-stage Renal Disease (ESRD) become eligible for Medicare when their disease progresses to the point that they have been unable to work for at least two years. It would be potentially useful for some research projects to know whether cancer patients obtained their Medicare eligibility through age-in, disability, or ESRD.
+
+Medicare Cost Coverage-individuals who are eligible for Medicare but do not elect to join a risk contract with one of our participating health plans. This is a declining enrollment group because all newly eligible Medicare beneficiaries who want to be members of an HMO to receive their Medicare benefits must do to under a risk contract. Because Medicare Cost enrollees are not restricted from using other Medicare participating providers of service, we cannot be certain that these persons are receiving all of their medical care from our participating health plans.
+
+Medicare Working Aged-individuals who are age 65 and older, enrolled in Medicare, and also have HMO coverage through employment (of self or spouse). In this case, the HMO coverage is the primary coverage and Medicare is the secondary payer for Medicare benefits that are not covered by the employer group contract (usually relates to benefits for Durable Medical Equipment, Skilled Nursing Facility care, and post-transplant medications). Under Medicare Risk contracts, CMS pays a modest monthly Medicare Working Aged premium to HMOs for these individuals, which provides an incentive for HMOs to track this eligibility category.
+
+Medicaid Risk Coverage-individuals who are eligible for Medicaid and have elected to join the participating HMO under a risk contract between the HMO and the State Medicaid program. Medicaid eligibility relates to low income and categorical welfare eligibility (Temporary Aid to Needy Families (TANF)).
+
+#### Parts
+
+##### Part A: Hospital Insurance
+
+Part A covers hospital visits - including stays in a skilled nursing facility - if certain criteria are met:
+
+- The hospital stay must be at least three days, not counting the discharge date.
+- The nursing home stay must be for something diagnosed during the hospital stay.
+- If the patient is not receiving rehabilitation, but has some other ailment that requires skilled nursing supervision, the nursing home stay would be covered.
+- The care being rendered by the nursing home must be skilled. Part A does not pay for custodial, non-skilled, or long-term care.
+
+The maximum length of stay that Part A will cover in a skilled nursing facility is 100 days per ailment. The first 20 days are paid in full by Medicare with the remaining 80 days requiring a co-payment (as of 2008,  $128.00 per day). If a beneficiary uses a portion of their Part A benefit and then goes at least 60 days without receiving facility-based skilled services, the person qualifies for a new 100-day benefit period.
+
+##### Part B: Medical Insurance
+
+Part B helps pay for some services and products not covered by Part A, generally on an outpatient basis. Part B is optional and may be deferred if the beneficiary or their spouse is still working. There is a lifetime penalty (10% per year) imposed for not accepting Part B if not actively working.
+
+Part B coverage includes:
+
+- physician and nursing services: x-rays, laboratory tests, influenza and pneumonia vaccinations, blood transfusions, and other outpatient medical treatments administered in a doctor's office. Medication administration is covered under Part B only if it is administered by the physician during an office visit.
+- limited ambulance transportation
+- durable medical equipment including canes, walkers, wheelchairs, and mobility scooters
+- prosthetic devices such as artificial limbs and breast prosthesis
+- one pair of eyeglasses following cataract surgery
+- oxygen for home use
+
+Complex rules are used to manage the benefit, and advisories are periodically issued which describe coverage criteria. On the national level, these advisories are issued by the Centers for Medicare and Medicaid Services (CMS) and are known as National Coverage Determinations (NCD). Local Coverage Determinations (LCD) only apply within the multi-state area managed by a specific regional Medicare Part B contractor. Coverage information is also located in the CMS Internet-Only Manuals (IOM), the Code of Federal Regulations (CFR), the Social Security Act, and the Federal Register.
+
+##### Part C: Medicare Advantage plans
+
+With the passage of the Balanced Budget Act of 1997, Medicare beneficiaries were given the option to receive their Medicare benefits through private health insurance plans, instead of through the original Medicare plan (Parts A and B). These programs were known as "Medicare+Choice" or "Part C" plans. These plans became known as "Medicare Advantage" (MA) plans.
+
+Medicare has a standard benefit package that covers medically necessary care that members can receive from nearly any hospital or doctor in the country. For people who choose to enroll in a Medicare private health plan, Medicare pays the private health plan a set amount every month for each member. Members may have to pay a monthly premium in addition to the Medicare Part B premium and generally pay a fixed amount (a copayment of  $20 for example) every time they see a doctor. The copayment can be higher to see a specialist.
+
+The private plans are required to offer a benefit "package" that is at least as good as Medicare's and cover everything Medicare covers, but they do not have to cover every benefit in the same way. Plans that pay less than Medicare for some benefits, like skilled nursing, can balance their benefits package by offering lower copayments for doctor visits. Private plans use some of the excess payments they receive from the government for each enrollee to offer supplemental benefits. Some plans put a limit on their members' annual out-of-pocket spending, providing some insurance against catastrophic costs over  $5,000. But many plans use the excess subsidies to offer dental coverage and other services not covered by Medicare. Medicare Advantage Plans that also include Part D prescription drug benefits are known as a Medicare Advantage Prescription Drug plan (MAPD).
+
+In 2006, enrollees in Medicare Advantage Private Fee-for-Service plans were offered a net extra benefit value (the value of the additional benefits minus any additional premium) of  $55.92 a month more than the traditional Medicare benefit package.
+
+##### Part D: Prescription Drug plans
+
+Medicare Part D went into effect on January 1, 2006. Anyone with Part A or B is eligible for Part D. It was made possible by the passage of the Medicare Prescription Drug, Improvement, and Modernization Act. In order to receive this benefit, a person with Medicare must enroll in a stand-alone Prescription Drug Plan (PDP) or Medicare Advantage plan with prescription drug coverage (MAPD). These plans are approved and regulated by the Medicare program, but are actually designed and administered by private health insurance companies. Unlike Original Medicare, Part D coverage is not standardized. Plans choose which drugs they wish to cover and at what level they wish to cover it. The exception to this is drugs that Medicare specifically excludes from coverage, including but not limited to benzodiazepines, cough suppressant and barbiturates. Plans that cover excluded drugs are not allowed to pass those costs on to Medicare, and plans are required to repay CMS if they are found to have billed Medicare in these cases.
+
+It should be noted again for beneficiaries who are dual-eligible (eligible for Medicare and Medicaid) Medicaid will pay for drugs not covered by part D of Medicare, such as benzodiazepines.
